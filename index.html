@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crank It Up</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Monoton&display=swap" rel="stylesheet">
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html, body {
+    height: 100%;
+    background: #060010;
+    overflow: hidden;
+  }
+
+  body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:
+      radial-gradient(circle at 50% 50%, #1a0033 0%, #060010 70%);
+    background-size: 40px 40px, 40px 40px, cover;
+  }
+
+  .grid {
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255, 0, 200, 0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 255, 255, 0.08) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+  }
+
+  .stage {
+    animation: spin 7s linear infinite;
+  }
+
+  .neon {
+    font-family: 'Monoton', cursive;
+    font-size: clamp(2.5rem, 10vw, 8rem);
+    text-align: center;
+    letter-spacing: 0.05em;
+    color: #fff;
+    text-shadow:
+      0 0 5px #fff,
+      0 0 12px #fff,
+      0 0 20px #ff00de,
+      0 0 40px #ff00de,
+      0 0 70px #ff00de,
+      0 0 100px #ff00de;
+    animation: flicker 3.5s infinite alternate;
+    white-space: nowrap;
+  }
+
+  .neon span {
+    display: block;
+  }
+
+  .neon .up {
+    color: #0ff;
+    text-shadow:
+      0 0 5px #fff,
+      0 0 12px #fff,
+      0 0 20px #0ff,
+      0 0 40px #0ff,
+      0 0 70px #0ff,
+      0 0 100px #0ff;
+  }
+
+  .tagline {
+    position: fixed;
+    bottom: 6vh;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Monoton', cursive;
+    font-size: clamp(0.7rem, 2vw, 1.2rem);
+    color: #fff;
+    letter-spacing: 0.3em;
+    text-shadow: 0 0 5px #fff, 0 0 15px #ff00de, 0 0 30px #ff00de;
+    opacity: 0.85;
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  @keyframes flicker {
+    0%, 18%, 22%, 25%, 53%, 57%, 100% {
+      opacity: 1;
+    }
+    20%, 24%, 55% {
+      opacity: 0.4;
+    }
+  }
+</style>
+</head>
+<body>
+  <div class="grid"></div>
+  <div class="stage">
+    <div class="neon">
+      <span class="crank">CRANK</span>
+      <span class="up">IT UP</span>
+    </div>
+  </div>
+  <div class="tagline">crankreports</div>
+</body>
+</html>
