@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Santa Cruz Taco Crawl 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Monoton&display=swap" rel="stylesheet">
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html, body {
+    min-height: 100%;
+    background: #060010;
+  }
+
+  body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 8vh 5vw 6vh;
+    background: radial-gradient(circle at 50% 50%, #1a0033 0%, #060010 70%);
+  }
+
+  .grid {
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255, 0, 200, 0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 255, 255, 0.08) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+  }
+
+  h1 {
+    font-family: 'Monoton', cursive;
+    font-size: clamp(1.4rem, 5vw, 3rem);
+    text-align: center;
+    letter-spacing: 0.05em;
+    color: #0ff;
+    text-shadow:
+      0 0 5px #fff,
+      0 0 12px #fff,
+      0 0 20px #0ff,
+      0 0 40px #0ff,
+      0 0 70px #0ff;
+    margin-bottom: 6vh;
+    z-index: 1;
+  }
+
+  .links {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    width: 100%;
+    max-width: 420px;
+    z-index: 1;
+  }
+
+  a.link {
+    display: block;
+    text-align: center;
+    padding: 0.9em 1.2em;
+    font-family: 'Monoton', cursive;
+    font-size: clamp(0.8rem, 2.2vw, 1.1rem);
+    letter-spacing: 0.08em;
+    color: #fff;
+    text-decoration: none;
+    border: 2px solid #ff00de;
+    border-radius: 10px;
+    text-shadow: 0 0 5px #fff, 0 0 15px #ff00de;
+    box-shadow: 0 0 8px #ff00de, inset 0 0 8px rgba(255, 0, 222, 0.3);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  a.link:hover {
+    transform: scale(1.04);
+    box-shadow: 0 0 20px #ff00de, inset 0 0 12px rgba(255, 0, 222, 0.5);
+  }
+
+  a.link.results {
+    border-color: #0ff;
+    box-shadow: 0 0 8px #0ff, inset 0 0 8px rgba(0, 255, 255, 0.3);
+    text-shadow: 0 0 5px #fff, 0 0 15px #0ff;
+  }
+
+  a.link.results:hover {
+    box-shadow: 0 0 20px #0ff, inset 0 0 12px rgba(0, 255, 255, 0.5);
+  }
+
+  a.back {
+    margin-top: 6vh;
+    font-family: 'Monoton', cursive;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: #fff;
+    opacity: 0.6;
+    text-decoration: none;
+    z-index: 1;
+  }
+</style>
+</head>
+<body>
+  <div class="grid"></div>
+  <h1>Santa Cruz Taco Crawl 2026</h1>
+  <div class="links">
+    <a class="link results" href="Results.html">Results</a>
+    <a class="link" href="Agave.html">Agave</a>
+    <a class="link" href="De%20La%20Hacienda.html">De La Hacienda</a>
+    <a class="link" href="Los%20Pericos.html">Los Pericos</a>
+    <a class="link" href="Moreno.html">Moreno</a>
+    <a class="link" href="TSC.html">TSC</a>
+    <a class="link" href="Vallarta.html">Vallarta</a>
+  </div>
+  <a class="back" href="/">&larr; back to crankreports</a>
+</body>
+</html>

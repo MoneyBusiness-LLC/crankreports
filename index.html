@@ -88,6 +88,30 @@
     opacity: 0.85;
   }
 
+  .taco-button {
+    position: fixed;
+    bottom: 13vh;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0.6em 1.4em;
+    font-family: 'Monoton', cursive;
+    font-size: clamp(0.6rem, 1.6vw, 0.95rem);
+    letter-spacing: 0.15em;
+    color: #fff;
+    text-decoration: none;
+    border: 2px solid #0ff;
+    border-radius: 10px;
+    text-shadow: 0 0 5px #fff, 0 0 15px #0ff;
+    box-shadow: 0 0 8px #0ff, inset 0 0 8px rgba(0, 255, 255, 0.3);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    white-space: nowrap;
+  }
+
+  .taco-button:hover {
+    transform: translateX(-50%) scale(1.05);
+    box-shadow: 0 0 20px #0ff, inset 0 0 12px rgba(0, 255, 255, 0.5);
+  }
+
   @keyframes spin {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
@@ -111,6 +135,7 @@
       <span class="up">IT UP</span>
     </div>
   </div>
+  <a class="taco-button" href="/santa_cruz_taco_crawl_2026/">SANTA CRUZ TACO CRAWL 2026</a>
   <div class="tagline">crankreports</div>
 </body>
 </html>
