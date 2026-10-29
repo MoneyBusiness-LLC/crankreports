@@ -1,0 +1,506 @@
+{
+  "_howto": [
+    "One entry per day, keyed by date (YYYY-MM-DD). The game plays the latest date that is today or earlier.",
+    "surface: 5 multiple-choice questions. 'answer' is the correct choice, 'wrong' is the 3 wrong choices. The game shuffles them.",
+    "midwater: 3 'how many' questions. 'answer' is a number. 'min' and 'max' set the slider. Add 'step' for decimals, like 0.1.",
+    "bottom: 1 clue with a ONE-WORD 'answer'. List other fair answers in 'alsoAccept'.",
+    "Wrap words in *asterisks* to show them in italics, like *The Social Network*."
+  ],
+  "2026-10-25": {
+    "surface": [
+      {
+        "topic": "Politics",
+        "question": "How many senators does each U.S. state get?",
+        "answer": "2",
+        "wrong": [
+          "1",
+          "3",
+          "Depends on population"
+        ]
+      },
+      {
+        "topic": "Economics",
+        "question": "Who sets the U.S. federal funds interest rate?",
+        "answer": "The Federal Reserve",
+        "wrong": [
+          "The Treasury",
+          "Congress",
+          "The SEC"
+        ]
+      },
+      {
+        "topic": "Tech",
+        "question": "What does the \"G\" in GPU stand for?",
+        "answer": "Graphics",
+        "wrong": [
+          "General",
+          "Global",
+          "Gigabit"
+        ]
+      },
+      {
+        "topic": "Sports",
+        "question": "Who did the San Diego Padres lose to in their final 2026 game?",
+        "answer": "Brewers",
+        "wrong": [
+          "Dodgers",
+          "Diamondbacks",
+          "Mets"
+        ]
+      },
+      {
+        "topic": "Economics",
+        "question": "What does the CPI track?",
+        "answer": "Consumer prices",
+        "wrong": [
+          "Stock prices",
+          "Company profits",
+          "Crop output"
+        ]
+      }
+    ],
+    "midwater": [
+      {
+        "question": "How many countries border Rwanda?",
+        "answer": 4,
+        "unit": "countries",
+        "min": 0,
+        "max": 12
+      },
+      {
+        "question": "How many miles away is the Moon, on average?",
+        "answer": 238855,
+        "unit": "miles",
+        "min": 1000,
+        "max": 10000000
+      },
+      {
+        "question": "How old is Bryan Cranston?",
+        "answer": 70,
+        "unit": "years old",
+        "min": 20,
+        "max": 100
+      }
+    ],
+    "bottom": {
+      "clue": "16th president's killer; also where you sit at a diner",
+      "answer": "Booth",
+      "alsoAccept": []
+    }
+  },
+  "2026-10-26": {
+    "surface": [
+      {
+        "topic": "Politics",
+        "question": "How many senators does each U.S. state get?",
+        "answer": "2",
+        "wrong": [
+          "1",
+          "3",
+          "Depends on population"
+        ]
+      },
+      {
+        "topic": "Economics",
+        "question": "Who sets the U.S. federal funds interest rate?",
+        "answer": "The Federal Reserve",
+        "wrong": [
+          "The Treasury",
+          "Congress",
+          "The SEC"
+        ]
+      },
+      {
+        "topic": "Tech",
+        "question": "What does the \"G\" in GPU stand for?",
+        "answer": "Graphics",
+        "wrong": [
+          "General",
+          "Global",
+          "Gigabit"
+        ]
+      },
+      {
+        "topic": "Sports",
+        "question": "Who did the San Diego Padres lose to in their final 2026 game?",
+        "answer": "Brewers",
+        "wrong": [
+          "Dodgers",
+          "Diamondbacks",
+          "Mets"
+        ]
+      },
+      {
+        "topic": "Economics",
+        "question": "What does the CPI track?",
+        "answer": "Consumer prices",
+        "wrong": [
+          "Stock prices",
+          "Company profits",
+          "Crop output"
+        ]
+      }
+    ],
+    "midwater": [
+      {
+        "question": "How many countries border Rwanda?",
+        "answer": 4,
+        "unit": "countries",
+        "min": 0,
+        "max": 12
+      },
+      {
+        "question": "How many miles away is the Moon, on average?",
+        "answer": 238855,
+        "unit": "miles",
+        "min": 1000,
+        "max": 10000000
+      },
+      {
+        "question": "How old is Bryan Cranston?",
+        "answer": 70,
+        "unit": "years old",
+        "min": 20,
+        "max": 100
+      }
+    ],
+    "bottom": {
+      "clue": "16th president's killer; also where you sit at a diner",
+      "answer": "Booth",
+      "alsoAccept": []
+    }
+  },
+  "2026-10-27": {
+    "surface": [
+      {
+        "topic": "Tech",
+        "question": "Actor portraying Mark Zuckerberg in *The Social Network*",
+        "answer": "Jesse Eisenberg",
+        "wrong": [
+          "Andrew Garfield",
+          "Justin Timberlake",
+          "Michael Cera"
+        ]
+      },
+      {
+        "topic": "Science",
+        "question": "Who discovered continental drift",
+        "answer": "Alfred Wegener",
+        "wrong": [
+          "Charles Darwin",
+          "Charles Lyell",
+          "Harry Hess"
+        ]
+      },
+      {
+        "topic": "Sports",
+        "question": "Bay Area WNBA team",
+        "answer": "Valkyries",
+        "wrong": [
+          "Aces",
+          "Storm",
+          "Mercury"
+        ]
+      },
+      {
+        "topic": "Science",
+        "question": "Monterey Bay area deep sea fish with see through head",
+        "answer": "Barreleye",
+        "wrong": [
+          "Anglerfish",
+          "Gulper eel",
+          "Vampire squid"
+        ]
+      },
+      {
+        "topic": "Sports",
+        "question": "When did the Kentucky Derby begin",
+        "answer": "1875",
+        "wrong": [
+          "1861",
+          "1899",
+          "1920"
+        ]
+      }
+    ],
+    "midwater": [
+      {
+        "question": "How many buttons on a 2018 TI-84+ Graphing Calculator",
+        "answer": 50,
+        "unit": "buttons",
+        "min": 10,
+        "max": 100
+      },
+      {
+        "question": "How wide is the Grand Canyon, on average [miles]",
+        "answer": 10,
+        "unit": "miles",
+        "min": 1,
+        "max": 40
+      },
+      {
+        "question": "How many GB of RAM in the base model MacBook Neo",
+        "answer": 8,
+        "unit": "GB",
+        "min": 1,
+        "max": 64
+      }
+    ],
+    "bottom": {
+      "clue": "To which political party did the 13th President Millard Fillmore belong?; also a hat with hair",
+      "answer": "Whig",
+      "alsoAccept": []
+    }
+  },
+  "2026-10-28": {
+    "surface": [
+      {
+        "topic": "Cinema",
+        "question": "Who does the Nathan Fielder/Lance Oppenheim documentary *You Can See Everything* center on?",
+        "answer": "Elizabeth Holmes",
+        "wrong": [
+          "Sam Bankman-Fried",
+          "Adam Neumann",
+          "Martin Shkreli"
+        ]
+      },
+      {
+        "topic": "Sports",
+        "question": "Luka Dončić nationality",
+        "answer": "Slovenian",
+        "wrong": [
+          "Serbian",
+          "Croatian",
+          "Greek"
+        ]
+      },
+      {
+        "topic": "History",
+        "question": "12th US President",
+        "answer": "Zachary Taylor",
+        "wrong": [
+          "James K. Polk",
+          "Millard Fillmore",
+          "John Tyler"
+        ]
+      },
+      {
+        "topic": "Cinema",
+        "question": "Lead Actor in *There Will Be Blood*",
+        "answer": "Daniel Day-Lewis",
+        "wrong": [
+          "Joaquin Phoenix",
+          "Philip Seymour Hoffman",
+          "Paul Dano"
+        ]
+      },
+      {
+        "topic": "Geography",
+        "question": "Largest Hawaiian Island",
+        "answer": "Hawaiʻi",
+        "wrong": [
+          "Maui",
+          "Oʻahu",
+          "Kauaʻi"
+        ]
+      }
+    ],
+    "midwater": [
+      {
+        "question": "How many times has Tiger Woods been arrested for DUI?",
+        "answer": 2,
+        "unit": "DUI arrests",
+        "min": 0,
+        "max": 10
+      },
+      {
+        "question": "How much did Apple stock dip in after hours trading following Tim Cook's retirement announcement?",
+        "answer": 0.5,
+        "unit": "percent",
+        "min": 0,
+        "max": 3,
+        "step": 0.1
+      },
+      {
+        "question": "How much was the SpaceX IPO price?",
+        "answer": 135,
+        "unit": "dollars per share",
+        "min": 10,
+        "max": 1000,
+        "log": true
+      }
+    ],
+    "bottom": {
+      "clue": "One street name for Ketamine; also a delicious breakfast cereal",
+      "answer": "Special K",
+      "alsoAccept": []
+    }
+  },
+  "2026-10-29": {
+    "surface": [
+      {
+        "topic": "Art",
+        "question": "Name the complementary color for red (traditional RYB color model)",
+        "answer": "Green",
+        "wrong": [
+          "Blue",
+          "Orange",
+          "Purple"
+        ]
+      },
+      {
+        "topic": "History",
+        "question": "A country the US has not overthrown",
+        "answer": "Turkmenistan",
+        "wrong": [
+          "Chile",
+          "Venezuela",
+          "Iraq"
+        ]
+      },
+      {
+        "topic": "Cars",
+        "question": "Name of the new EV Ferrari",
+        "answer": "Luce",
+        "wrong": [
+          "Elettrica",
+          "Purosangue",
+          "Amalfi"
+        ]
+      },
+      {
+        "topic": "Tech",
+        "question": "Starting price of the new 16 in MacBook Pro, PROLED",
+        "answer": "$3,399",
+        "wrong": [
+          "$2,899",
+          "$2,499",
+          "$3,999"
+        ]
+      },
+      {
+        "topic": "Science",
+        "question": "What is a result of a Kelvin wave?",
+        "answer": "Higher tides",
+        "wrong": [
+          "Tsunamis",
+          "Rip currents",
+          "Whirlpools"
+        ]
+      }
+    ],
+    "midwater": [
+      {
+        "question": "How many times has Futurama been canceled",
+        "answer": 2,
+        "unit": "cancellations",
+        "min": 0,
+        "max": 10
+      },
+      {
+        "question": "How many points did Luka Dončić score against the Utah Jazz on Sunday, October 25",
+        "answer": 52,
+        "unit": "points",
+        "min": 0,
+        "max": 80
+      },
+      {
+        "question": "How many miles per hour sustained wind qualifies a hurricane?",
+        "answer": 74,
+        "unit": "mph",
+        "min": 30,
+        "max": 200
+      }
+    ],
+    "bottom": {
+      "clue": "Where does cinnamon come from?; also a noise from a dog",
+      "answer": "Bark",
+      "alsoAccept": []
+    }
+  },
+  "2026-10-30": {
+    "surface": [
+      {
+        "topic": "Nature",
+        "question": "Which of the following is NOT a type of salmon",
+        "answer": "Makah",
+        "wrong": [
+          "Chinook",
+          "Coho",
+          "Sockeye"
+        ]
+      },
+      {
+        "topic": "Geography",
+        "question": "Highest mountain in the contiguous lower 48",
+        "answer": "Mt. Whitney",
+        "wrong": [
+          "Mt. Rainier",
+          "Mt. Elbert",
+          "Mt. Shasta"
+        ]
+      },
+      {
+        "topic": "Science",
+        "question": "Kelvin = Celsius + ____",
+        "answer": "273.15",
+        "wrong": [
+          "272.15",
+          "274.15",
+          "275.15"
+        ]
+      },
+      {
+        "topic": "History",
+        "question": "Where did the Titanic depart",
+        "answer": "Southampton, England",
+        "wrong": [
+          "Belfast, Northern Ireland",
+          "Liverpool, England",
+          "Plymouth, England"
+        ]
+      },
+      {
+        "topic": "History",
+        "question": "What latitude did they find the Titanic (and the Titan Sub) wreck",
+        "answer": "41° N",
+        "wrong": [
+          "35° N",
+          "47° N",
+          "52° N"
+        ]
+      }
+    ],
+    "midwater": [
+      {
+        "question": "How much did Elon Musk spend on the 2026 Midterm elections",
+        "answer": 366000000,
+        "unit": "dollars",
+        "min": 1000000,
+        "max": 1000000000
+      },
+      {
+        "question": "How much would this be equivalent to for a person worth $100,000? Elon is worth 1 trillion...",
+        "answer": 36.6,
+        "unit": "dollars",
+        "min": 0,
+        "max": 100,
+        "step": 0.1
+      },
+      {
+        "question": "How much (on average) has the 2024 Foundation series Tesla Cyber Truck depreciated?",
+        "answer": 40,
+        "unit": "percent",
+        "min": 0,
+        "max": 100
+      }
+    ],
+    "bottom": {
+      "clue": "Besides himself, what did Tay-K declare \"very hard\" in No Jumper's 2018 hit \"Hard\"",
+      "answer": "Glock",
+      "alsoAccept": [
+        "School"
+      ]
+    }
+  }
+}
