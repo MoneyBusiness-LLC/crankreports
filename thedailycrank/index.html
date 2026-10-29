@@ -125,6 +125,16 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--sun);outline-of
 .haul dd{margin:0;min-width:0}
 .haul .e{font-size:18px;letter-spacing:1px}
 .haul .n{font:400 14px var(--display);font-variant-numeric:tabular-nums}
+.lb{display:flex;flex-direction:column;gap:10px;border-top:2px dashed #27466f;padding-top:12px}
+.lb-title{margin:0;font:400 18px var(--display);color:var(--sun);letter-spacing:.02em}
+.rankline{font:600 17px var(--body);color:var(--ink)}
+.board{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:4px}
+.board li{display:grid;grid-template-columns:36px 1fr auto;gap:10px;align-items:center;padding:6px 10px;background:var(--panel-2);border:2px solid var(--edge)}
+.board li.me{background:#3a3000;border-color:var(--sun)}
+.board li.gap{background:none;border:0;padding:0 10px;color:var(--muted)}
+.board .rk{font:400 15px var(--display);color:var(--muted);font-variant-numeric:tabular-nums}
+.board .nm{min-width:0;overflow-wrap:anywhere}
+.board .sc{font:400 15px var(--display);color:var(--sun);font-variant-numeric:tabular-nums}
 .share{background:var(--edge);color:var(--ink);padding:12px;margin:0;font:15px/1.5 ui-monospace,Menlo,Consolas,monospace;white-space:pre-wrap;overflow-x:auto;user-select:all}
 .note{font-size:12px;color:var(--muted);text-align:center;margin:0}
 .note select{font:500 13px var(--body);background:var(--panel-2);color:var(--ink);border:2px solid var(--edge);padding:3px 6px;margin-left:4px}
@@ -175,7 +185,7 @@ function shuffled(arr, seed){                                          // same o
 function buildDay(key, d){
   const r1 = d.surface.map((q,i)=>{
     const opts = shuffled([q.answer, ...q.wrong], hashStr(key+':'+i));
-    return { cat:esc(q.topic||''), q:rich(q.question), opts:opts.map(esc), a:opts.indexOf(q.answer) };
+    return { cat:esc(q.topic||''), q:rich(q.question), opts:opts.map(esc), raw:opts, a:opts.indexOf(q.answer) };
   });
   const r2 = d.midwater.map(q=>({
     q:rich(q.question), ans:+q.answer, min:+q.min, max:+q.max, step: q.step!=null ? +q.step : 1, unit:esc(q.unit||''),
@@ -834,7 +844,8 @@ function askMC(q, limit, eyebrow){
         else if(i===idx){ b.classList.add('wrong'); b.querySelector('.mark').textContent='✗'; }
         else b.classList.add('dim');
       });
-      res({ idx, correct: idx===q.a, left: Math.max(0, limit-el) });
+      const ms = Math.min(limit*1000, Math.round(el*1000));
+      res({ idx, correct: idx===q.a, left: Math.max(0, limit-el), ms });
     };
     startTimer(limit, ()=>finish(-1));
     panel.querySelectorAll('.opt').forEach(b=>b.onclick = ()=>finish(+b.dataset.i));
@@ -944,7 +955,7 @@ function askWord(q, limit, eyebrow){
 
 // ---------- game state ----------
 let R;
-function fresh(){ R = { catches:[], r1:[], r2:[], bottom:null }; S.hookY = HANG; S.bait=null; S.hooked=null; S.flying=null; S.sink=0; S.noLine=false;
+function fresh(){ R = { catches:[], r1:[], r2:[], bottom:null, picks:{ r1:[], r2:[], r3:null } }; S.hookY = HANG; S.bait=null; S.hooked=null; S.flying=null; S.sink=0; S.noLine=false;
   $('scene').classList.remove('wasted'); $('fatal').classList.remove('on'); updateScore(); }
 function baseSum(round){ return R.catches.filter(c=>c.round===round).reduce((s,c)=>s+c.base,0); }
 function bottomDelta(){ const b=R.bottom; if(!b) return 0; if(b.type==='hook') return b.win?100:0; return b.win ? 2*b.bet : -b.bet; }
@@ -973,8 +984,9 @@ async function round1(){
     await toDepth(0, i);
     const q = list[i];
     const r = await askMC(q, 10, `Surface · ${i+1} of ${list.length} · ${q.cat}`);
+    R.picks.r1.push({ choice: r.idx>=0 ? q.raw[r.idx] : null, ms: r.ms });
     if(r.correct){
-      const pts = 100 + Math.round(50*r.left/10);
+      const pts = 100 + Math.round(50*(10000 - r.ms)/10000);
       feedback(`Fish on! +${pts}`, true); praise();
       const f = await catchIt('fish');
       R.catches.push({ round:1, base:pts, type:'fish', col:f.col, name:'Little fish', emoji:'🐟' });
@@ -992,6 +1004,7 @@ async function round2(){
     await toDepth(1, i);
     const q = list[i];
     const r = await askSlider(q, 20, `Mid-water · ${i+1} of ${list.length} · How many?`);
+    R.picks.r2.push({ guess: r.guess });
     const c = closeness(r.guess, q.ans), pts = Math.round(300*c);
     $('ansline').textContent = `Answer: ${fmt(q.ans)} ${q.unit}. ` + (r.guess==null ? "You didn't lock in a guess." : `You said ${fmt(r.guess)}.`);
     if(pts>0){
@@ -1036,6 +1049,7 @@ async function round3(){
     await lowerTo(DEPTH[2], 1.4); hideBanner();
     const q = DAY.r3main;
     const r = await askWord(q, 30, `Bottom · Bait: ${c.name}, ${c.base} pts`);
+    R.picks.r3 = { bait: pick3, text: r.text };
     if(r.correct){
       const prize = c.base<=150 ? 'crab' : (c.base<=250 ? 'squid' : 'whale');
       R.bottom = { type:'bait', win:true, bet:c.base, prize };
@@ -1053,6 +1067,7 @@ async function round3(){
     await lowerTo(DEPTH[2], 1.4); hideBanner();
     const q = DAY.r3main;
     const r = await askWord(q, 30, 'Bottom · Bare hook');
+    R.picks.r3 = { bait: -1, text: r.text };
     R.bottom = { type:'hook', win:r.correct, bet:0, prize:'crab' };
     if(r.correct){ feedback(`${q.show}! A little crab grabbed on. +100`, true); praise(); await catchIt('crab'); }
     else { feedback(`Snap! It was ${q.show}. Nothing lost.`, false); banner('SNAP!', true); await snapLine('squid'); }
@@ -1062,7 +1077,7 @@ async function round3(){
 }
 
 function shareText(res){
-  return `The Daily Crank #${DAYNUM} 🎣\nSurface:  ${res.r1.join('')}\nMid:      ${res.r2.join('')}\nBottom:   ${res.bottomEmoji}\nScore: ${fmt(res.score)}\ncrankreports.com/thedailycrank`;
+  return `The Daily Crank #${DAYNUM} 🎣\nSurface:  ${res.r1.join('')}\nMid:      ${res.r2.join('')}\nBottom:   ${res.bottomEmoji}\nScore: ${fmt(res.score)}${res.rank ? `\nRank: #${res.rank} of ${fmt(res.total)}` : ''}\ncrankreports.com/thedailycrank`;
 }
 
 async function play(){
@@ -1074,13 +1089,80 @@ async function play(){
   await round3();
   const b = R.bottom;
   const res = {
-    score: total(), r1:R.r1, r2:R.r2,
+    score: total(), r1:R.r1, r2:R.r2, picks:R.picks, quizDay:dayKey, boardDay:isoOf(new Date()),
     s1: baseSum(1), s2: baseSum(2), d3: bottomDelta(),
     bottomEmoji: b.win ? ({crab:'🦀', squid:'🦑', whale:'🐋💀'})[b.prize] : '❌',
     bottomNote: b.type==='hook' ? (b.win?'Bare hook catch':'Bare hook, no catch') : (b.win ? (b.prize==='whale' ? 'Bait tripled. Caught whale, sank barge.' : 'Bait tripled') : 'Bait lost'),
   };
   store.set(res);
   results(res);
+}
+
+// ---------- leaderboard ----------
+const API = 'https://bwduiiwfcxkdmueciqno.supabase.co/functions/v1/dailycrank';
+const LS = { get(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }, set(k,v){ try{ localStorage.setItem(k,v); }catch(e){} } };
+function playerId(){
+  let id = LS.get('dailycrank-player');
+  if(!id){
+    id = (crypto.randomUUID ? crypto.randomUUID() : '10000000-1000-4000-8000-100000000000'.replace(/[018]/g, c=>(c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c/4).toString(16)));
+    LS.set('dailycrank-player', id);
+  }
+  return id;
+}
+const liveKey = ()=> DAY_KEYS.filter(k=>k<=isoOf(new Date())).pop() || DAY_KEYS[0];
+const lbHead = `<h3 class="lb-title">Today's leaderboard</h3>`;
+function renderBoard(res){
+  const el = $('lb'); if(!el) return;
+  if(!res.picks || res.quizDay !== liveKey() || res.boardDay !== isoOf(new Date())){
+    el.innerHTML = lbHead + `<p class="muted">The leaderboard only counts today's trip.</p>`; return;
+  }
+  if(res.board){ drawBoard(el, res); refreshBoard(el, res); return; }
+  const nick = LS.get('dailycrank-nick');
+  if(nick) postScore(el, res, nick); else nameForm(el, res);
+}
+function nameForm(el, res, err){
+  el.innerHTML = lbHead + `<p class="muted">Pick a nickname to post your score and see the board.</p>
+    <form class="word" id="nf"><input id="nick" type="text" maxlength="16" autocomplete="nickname" spellcheck="false" placeholder="Nickname" aria-label="Nickname" value="${esc(LS.get('dailycrank-nick')||'')}"><button class="btn" type="submit">Post</button></form>
+    <p class="feedback bad" id="nerr">${err ? esc(err) : ''}</p>`;
+  $('nf').onsubmit = e=>{
+    e.preventDefault();
+    const n = $('nick').value.trim().replace(/\s+/g,' ');
+    if(n.length<3 || n.length>16){ $('nerr').textContent = 'Use 3 to 16 characters.'; return; }
+    if(!/^[A-Za-z0-9 ]+$/.test(n)){ $('nerr').textContent = 'Use letters, numbers and spaces only.'; return; }
+    postScore(el, res, n);
+  };
+}
+function saveBoard(res, board){ res.board = board; res.rank = board.me ? board.me.rank : null; res.total = board.total; store.set(res); const p = $('shareText'); if(p) p.textContent = shareText(res); }
+async function postScore(el, res, nick){
+  el.innerHTML = lbHead + `<p class="muted">Posting your score…</p>`;
+  try{
+    const r = await fetch(API + '/submit', { method:'POST', headers:{ 'content-type':'application/json' },
+      body: JSON.stringify({ player:playerId(), nickname:nick, day:res.boardDay, picks:res.picks }) });
+    const data = await r.json().catch(()=>({}));
+    if(r.status===422 && data.field==='nickname'){ nameForm(el, res, data.error); return; }
+    if(!r.ok || !data.board) throw new Error(data.error || r.status);
+    LS.set('dailycrank-nick', nick);
+    saveBoard(res, data.board); drawBoard(el, res);
+  }catch(e){
+    el.innerHTML = lbHead + `<p class="muted">Couldn't reach the leaderboard.</p><button class="link" id="lbRetry">Try again</button>`;
+    $('lbRetry').onclick = ()=>postScore(el, res, nick);
+  }
+}
+async function refreshBoard(el, res){
+  try{
+    const r = await fetch(`${API}/board?day=${res.boardDay}&player=${playerId()}`);
+    if(!r.ok) return;
+    saveBoard(res, await r.json()); drawBoard(el, res);
+  }catch(e){}
+}
+function drawBoard(el, res){
+  const b = res.board, me = b.me;
+  const row = r=>`<li class="${r.me ? 'me' : ''}"><span class="rk">${r.rank}</span><span class="nm">${esc(r.nickname)}</span><span class="sc">${fmt(r.score)}</span></li>`;
+  const mine = me && !b.top.some(r=>r.me) ? `<li class="gap" aria-hidden="true">…</li>` + row({ ...me, me:true }) : '';
+  el.innerHTML = lbHead +
+    (me ? `<p class="rankline">#${me.rank} of ${fmt(b.total)} ${b.total===1 ? 'angler' : 'anglers'} today</p>` : '') +
+    `<ol class="board">${b.top.map(row).join('')}${mine}</ol><button class="link" id="lbRefresh">Refresh</button>`;
+  $('lbRefresh').onclick = ()=>refreshBoard(el, res);
 }
 
 let cdTimer;
@@ -1097,6 +1179,7 @@ function results(res){
        <div><dt>Mid</dt><dd class="e">${res.r2.join('')}</dd><dd class="n">${fmt(res.s2)}</dd></div>
        <div><dt>Bottom</dt><dd class="e">${res.bottomEmoji} <span class="muted">${res.bottomNote}</span></dd><dd class="n">${sign(res.d3)}</dd></div>
      </dl>
+     <section class="lb" id="lb" aria-live="polite"></section>
      <pre class="share" id="shareText">${text}</pre>
      <button class="btn" id="copyBtn">Copy result</button>
      <p class="feedback good" id="copyMsg" aria-live="polite"></p>
@@ -1105,9 +1188,11 @@ function results(res){
   $('copyBtn').onclick = ()=>{
     const msg = $('copyMsg');
     const fallback = ()=>{ const r=document.createRange(); r.selectNodeContents($('shareText')); const s=getSelection(); s.removeAllRanges(); s.addRange(r); msg.textContent='Selected. Press Copy on your device.'; };
+    const text = shareText(res);
     try { navigator.clipboard.writeText(text).then(()=>msg.textContent='Copied! Paste it in a text or post.', fallback); } catch(e){ fallback(); }
   };
   if($('again')) $('again').onclick = ()=>{ store.clear(); clearInterval(cdTimer); play(); };
+  renderBoard(res);
   const tick = ()=>{ const n=new Date(); const m=new Date(n); m.setHours(24,0,0,0); const s=Math.floor((m-n)/1000); const el=$('cd'); if(el) el.textContent = `${Math.floor(s/3600)}h ${Math.floor(s%3600/60)}m`; };
   tick(); clearInterval(cdTimer); cdTimer = setInterval(tick, 30000);
 }
