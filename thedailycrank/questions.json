@@ -496,9 +496,11 @@
       }
     ],
     "bottom": {
-      "clue": "Tay-K declared \"it\" was very hard in No Jumper's 2018 hit \"Hard\"",
+      "clue": "Besides himself, what did Tay-K declare \"very hard\" in No Jumper's 2018 hit \"Hard\"",
       "answer": "Glock",
-      "alsoAccept": []
+      "alsoAccept": [
+        "School"
+      ]
     }
   }
 }
