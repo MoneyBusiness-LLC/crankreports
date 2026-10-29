@@ -335,5 +335,170 @@
       "answer": "Special K",
       "alsoAccept": []
     }
+  },
+  "2026-10-29": {
+    "surface": [
+      {
+        "topic": "Art",
+        "question": "Name the complementary color for red (traditional RYB color model)",
+        "answer": "Green",
+        "wrong": [
+          "Blue",
+          "Orange",
+          "Purple"
+        ]
+      },
+      {
+        "topic": "History",
+        "question": "A country the US has not overthrown",
+        "answer": "Turkmenistan",
+        "wrong": [
+          "Chile",
+          "Venezuela",
+          "Iraq"
+        ]
+      },
+      {
+        "topic": "Cars",
+        "question": "Name of the new EV Ferrari",
+        "answer": "Luce",
+        "wrong": [
+          "Elettrica",
+          "Purosangue",
+          "Amalfi"
+        ]
+      },
+      {
+        "topic": "Tech",
+        "question": "Starting price of the new 16 in MacBook Pro, PROLED",
+        "answer": "$3,399",
+        "wrong": [
+          "$2,899",
+          "$2,499",
+          "$3,999"
+        ]
+      },
+      {
+        "topic": "Science",
+        "question": "What is a result of a Kelvin wave?",
+        "answer": "Higher tides",
+        "wrong": [
+          "Tsunamis",
+          "Rip currents",
+          "Whirlpools"
+        ]
+      }
+    ],
+    "midwater": [
+      {
+        "question": "How many times has Futurama been canceled",
+        "answer": 2,
+        "unit": "cancellations",
+        "min": 0,
+        "max": 10
+      },
+      {
+        "question": "How many points did Luka Dončić score against the Utah Jazz on Sunday, October 25",
+        "answer": 52,
+        "unit": "points",
+        "min": 0,
+        "max": 80
+      },
+      {
+        "question": "How many miles per hour sustained wind qualifies a hurricane?",
+        "answer": 74,
+        "unit": "mph",
+        "min": 30,
+        "max": 200
+      }
+    ],
+    "bottom": {
+      "clue": "Where does cinnamon come from?; also a noise from a dog",
+      "answer": "Bark",
+      "alsoAccept": []
+    }
+  },
+  "2026-10-30": {
+    "surface": [
+      {
+        "topic": "Nature",
+        "question": "Which of the following is NOT a type of salmon",
+        "answer": "Makah",
+        "wrong": [
+          "Chinook",
+          "Coho",
+          "Sockeye"
+        ]
+      },
+      {
+        "topic": "Geography",
+        "question": "Highest mountain in the contiguous lower 48",
+        "answer": "Mt. Whitney",
+        "wrong": [
+          "Mt. Rainier",
+          "Mt. Elbert",
+          "Mt. Shasta"
+        ]
+      },
+      {
+        "topic": "Science",
+        "question": "Kelvin = Celsius + ____",
+        "answer": "273.15",
+        "wrong": [
+          "272.15",
+          "274.15",
+          "275.15"
+        ]
+      },
+      {
+        "topic": "History",
+        "question": "Where did the Titanic depart",
+        "answer": "Southampton, England",
+        "wrong": [
+          "Belfast, Northern Ireland",
+          "Liverpool, England",
+          "Plymouth, England"
+        ]
+      },
+      {
+        "topic": "History",
+        "question": "What latitude did they find the Titanic (and the Titan Sub) wreck",
+        "answer": "41° N",
+        "wrong": [
+          "35° N",
+          "47° N",
+          "52° N"
+        ]
+      }
+    ],
+    "midwater": [
+      {
+        "question": "How much did Elon Musk spend on the 2026 Midterm elections",
+        "answer": 366000000,
+        "unit": "dollars",
+        "min": 1000000,
+        "max": 1000000000
+      },
+      {
+        "question": "How much would this be equivalent to for a person worth $100,000? Elon is worth 1 trillion...",
+        "answer": 36.6,
+        "unit": "dollars",
+        "min": 0,
+        "max": 100,
+        "step": 0.1
+      },
+      {
+        "question": "How much (on average) has the 2024 Foundation series Tesla Cyber Truck depreciated?",
+        "answer": 40,
+        "unit": "percent",
+        "min": 0,
+        "max": 100
+      }
+    ],
+    "bottom": {
+      "clue": "Ship that carried the Pilgrims in 1620; also a spring flower",
+      "answer": "Mayflower",
+      "alsoAccept": []
+    }
   }
 }

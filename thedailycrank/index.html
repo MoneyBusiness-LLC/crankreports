@@ -219,7 +219,7 @@ fetch('words.txt').then(r=>r.ok ? r.text() : '').then(t=>{ WORDS = t.split(/\s+/
 function setDay(k){
   dayKey = k; DAY = DAYS[k];
   const d = new Date(k+'T00:00:00');
-  DAYNUM = Math.floor((d - new Date(2026,9,1)) / 864e5) + 1;
+  DAYNUM = DAY_KEYS.indexOf(k) + 1;   // quiz number: the first day in questions.json is #1
   KEY = 'dailycrank-v4-' + k;
   document.getElementById('dayLabel').textContent =
     '#' + DAYNUM + ' · ' + d.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
