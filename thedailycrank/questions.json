@@ -502,5 +502,89 @@
         "School"
       ]
     }
+  },
+  "2026-10-31": {
+    "surface": [
+      {
+        "topic": "Politics",
+        "question": "What state was Obama born in?",
+        "answer": "Hawaii",
+        "wrong": [
+          "Illinois",
+          "California",
+          "New York"
+        ]
+      },
+      {
+        "topic": "TV",
+        "question": "Who played iCarly?",
+        "answer": "Miranda Cosgrove",
+        "wrong": [
+          "Victoria Justice",
+          "Jennette McCurdy",
+          "Ariana Grande"
+        ]
+      },
+      {
+        "topic": "History",
+        "question": "When was the Colosseum constructed?",
+        "answer": "70–80 AD",
+        "wrong": [
+          "30–20 BC",
+          "120–130 AD",
+          "200–210 AD"
+        ]
+      },
+      {
+        "topic": "Business",
+        "question": "What company is the largest grocer in the US",
+        "answer": "Walmart",
+        "wrong": [
+          "Amazon",
+          "Costco",
+          "Kroger"
+        ]
+      },
+      {
+        "topic": "History",
+        "question": "Who was the only bachelor U.S. president",
+        "answer": "James Buchanan",
+        "wrong": [
+          "Grover Cleveland",
+          "Chester Arthur",
+          "Thomas Jefferson"
+        ]
+      }
+    ],
+    "midwater": [
+      {
+        "question": "How many potato chips come from one potato?",
+        "answer": 60,
+        "unit": "chips",
+        "min": 0,
+        "max": 200
+      },
+      {
+        "question": "How many banana plants are grown in Iceland",
+        "answer": 650,
+        "unit": "banana plants",
+        "min": 0,
+        "max": 2000
+      },
+      {
+        "question": "How much did Halloween candy prices rise from last year, according to FinanceBuzz?",
+        "answer": 15,
+        "unit": "percent",
+        "min": 0,
+        "max": 50
+      }
+    ],
+    "bottom": {
+      "clue": "Beach staple in short supply; John Mulaney thought this would be a bigger problem in his life",
+      "answer": "Sand",
+      "alsoAccept": [
+        "Quicksand"
+      ]
+    }
   }
 }
