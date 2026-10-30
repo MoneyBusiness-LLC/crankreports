@@ -558,18 +558,18 @@
     ],
     "midwater": [
       {
-        "question": "How many pounds was the biggest bluefin tuna ever caught on rod and reel?",
-        "answer": 1496,
-        "unit": "pounds",
-        "min": 100,
-        "max": 3000
+        "question": "How many potato chips come from one potato?",
+        "answer": 60,
+        "unit": "chips",
+        "min": 0,
+        "max": 200
       },
       {
-        "question": "How many hearts does an octopus have?",
-        "answer": 3,
-        "unit": "hearts",
+        "question": "How many banana plants are grown in Iceland",
+        "answer": 650,
+        "unit": "banana plants",
         "min": 0,
-        "max": 10
+        "max": 2000
       },
       {
         "question": "How much did Halloween candy prices rise from last year, according to FinanceBuzz?",
@@ -580,10 +580,10 @@
       }
     ],
     "bottom": {
-      "clue": "Accused in Salem's 1692 trials; also Elphaba in *Wicked*",
-      "answer": "Witch",
+      "clue": "Beach staple in short supply; John Mulaney thought this would be a bigger problem in his life",
+      "answer": "Sand",
       "alsoAccept": [
-        "Witches"
+        "Quicksand"
       ]
     }
   }
