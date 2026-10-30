@@ -502,5 +502,89 @@
         "School"
       ]
     }
+  },
+  "2026-10-31": {
+    "surface": [
+      {
+        "topic": "Politics",
+        "question": "What state was Obama born in?",
+        "answer": "Hawaii",
+        "wrong": [
+          "Illinois",
+          "California",
+          "New York"
+        ]
+      },
+      {
+        "topic": "TV",
+        "question": "Who played iCarly?",
+        "answer": "Miranda Cosgrove",
+        "wrong": [
+          "Victoria Justice",
+          "Jennette McCurdy",
+          "Ariana Grande"
+        ]
+      },
+      {
+        "topic": "History",
+        "question": "When was the Colosseum constructed?",
+        "answer": "70–80 AD",
+        "wrong": [
+          "30–20 BC",
+          "120–130 AD",
+          "200–210 AD"
+        ]
+      },
+      {
+        "topic": "Business",
+        "question": "What company is the largest grocer in the US",
+        "answer": "Walmart",
+        "wrong": [
+          "Amazon",
+          "Costco",
+          "Kroger"
+        ]
+      },
+      {
+        "topic": "History",
+        "question": "Who was the only bachelor U.S. president",
+        "answer": "James Buchanan",
+        "wrong": [
+          "Grover Cleveland",
+          "Chester Arthur",
+          "Thomas Jefferson"
+        ]
+      }
+    ],
+    "midwater": [
+      {
+        "question": "How many pounds was the biggest bluefin tuna ever caught on rod and reel?",
+        "answer": 1496,
+        "unit": "pounds",
+        "min": 100,
+        "max": 3000
+      },
+      {
+        "question": "How many hearts does an octopus have?",
+        "answer": 3,
+        "unit": "hearts",
+        "min": 0,
+        "max": 10
+      },
+      {
+        "question": "How much did Halloween candy prices rise from last year, according to FinanceBuzz?",
+        "answer": 15,
+        "unit": "percent",
+        "min": 0,
+        "max": 50
+      }
+    ],
+    "bottom": {
+      "clue": "Accused in Salem's 1692 trials; also Elphaba in *Wicked*",
+      "answer": "Witch",
+      "alsoAccept": [
+        "Witches"
+      ]
+    }
   }
 }
