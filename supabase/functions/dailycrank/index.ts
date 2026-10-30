@@ -1,6 +1,7 @@
 // The Daily Crank leaderboard API (Supabase Edge Function "dailycrank").
 //   POST /dailycrank/submit  { player, nickname, day, picks }  -> re-scores the trip, saves it, returns the board
 //   GET  /dailycrank/board?day=YYYY-MM-DD&player=<uuid>          -> today's board
+//   POST /dailycrank/event   { player, day, quizDay, name, data } -> logs one gameplay event to dc_events
 // Scores are worked out here from the player's picks, using the live questions.json,
 // so the browser can't post a made-up score.
 import { createClient } from "npm:@supabase/supabase-js@2";
@@ -111,6 +112,7 @@ function dayOk(day: string) {
   const diff = (Date.parse(day + "T00:00:00Z") - Date.parse(new Date().toISOString().slice(0, 10) + "T00:00:00Z")) / 864e5;
   return diff >= -1 && diff <= 1;   // the player's local date, anywhere from UTC-12 to UTC+14
 }
+const EVENTS = new Set(["view", "start", "answer", "finish", "share"]);
 async function board(day: string, player: string) {
   const { data, error } = await db.rpc("dc_board", { p_day: day, p_player: player });
   if (error) throw error;
@@ -142,6 +144,17 @@ Deno.serve(async (req) => {
       const ins = await db.from("dc_scores").insert({ player_id: player, day, quiz_day: quizDay, score: result.total, haul: result.haul });
       if (ins.error && ins.error.code !== "23505") throw ins.error;      // 23505 = already posted today; keep the first score
       return reply({ score: result.total, board: await board(day, player) });
+    }
+    if (req.method === "POST" && url.pathname.endsWith("/event")) {
+      // Sent with navigator.sendBeacon, so the body arrives as text/plain.
+      const body = await req.json().catch(() => null);
+      const player = String(body?.player ?? ""), day = String(body?.day ?? ""), name = String(body?.name ?? "");
+      const quizDay = /^\d{4}-\d{2}-\d{2}$/.test(String(body?.quizDay)) ? body.quizDay : null;
+      const data = body?.data && typeof body.data === "object" && !Array.isArray(body.data) ? body.data : {};
+      if (!UUID.test(player) || !dayOk(day) || !EVENTS.has(name) || JSON.stringify(data).length > 500) return reply({ error: "Bad request." }, 400);
+      const ins = await db.from("dc_events").insert({ player_id: player, day, quiz_day: quizDay, name, data });
+      if (ins.error) throw ins.error;
+      return reply({ ok: true });
     }
     return reply({ error: "Not found." }, 404);
   } catch (e) {

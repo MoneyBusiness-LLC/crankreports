@@ -985,6 +985,7 @@ async function round1(){
     const q = list[i];
     const r = await askMC(q, 10, `Surface · ${i+1} of ${list.length} · ${q.cat}`);
     R.picks.r1.push({ choice: r.idx>=0 ? q.raw[r.idx] : null, ms: r.ms });
+    track('answer', { round:1, q:i, correct:r.correct, ms:r.ms });
     if(r.correct){
       const pts = 100 + Math.round(50*(10000 - r.ms)/10000);
       feedback(`Fish on! +${pts}`, true); praise();
@@ -1006,6 +1007,7 @@ async function round2(){
     const r = await askSlider(q, 20, `Mid-water · ${i+1} of ${list.length} · How many?`);
     R.picks.r2.push({ guess: r.guess });
     const c = closeness(r.guess, q.ans), pts = Math.round(300*c);
+    track('answer', { round:2, q:i, correct:pts>0, closeness:Math.round(c*100)/100, guessed:r.guess!=null });
     $('ansline').textContent = `Answer: ${fmt(q.ans)} ${q.unit}. ` + (r.guess==null ? "You didn't lock in a guess." : `You said ${fmt(r.guess)}.`);
     if(pts>0){
       const type = c>=.85 ? 'shark' : (c>=.5 ? 'sword' : 'tuna');
@@ -1050,6 +1052,7 @@ async function round3(){
     const q = DAY.r3main;
     const r = await askWord(q, 30, `Bottom · Bait: ${c.name}, ${c.base} pts`);
     R.picks.r3 = { bait: pick3, text: r.text };
+    track('answer', { round:3, q:0, correct:r.correct, bet:c.base });
     if(r.correct){
       const prize = c.base<=150 ? 'crab' : (c.base<=250 ? 'squid' : 'whale');
       R.bottom = { type:'bait', win:true, bet:c.base, prize };
@@ -1068,6 +1071,7 @@ async function round3(){
     const q = DAY.r3main;
     const r = await askWord(q, 30, 'Bottom · Bare hook');
     R.picks.r3 = { bait: -1, text: r.text };
+    track('answer', { round:3, q:0, correct:r.correct, bet:0 });
     R.bottom = { type:'hook', win:r.correct, bet:0, prize:'crab' };
     if(r.correct){ feedback(`${q.show}! A little crab grabbed on. +100`, true); praise(); await catchIt('crab'); }
     else { feedback(`Snap! It was ${q.show}. Nothing lost.`, false); banner('SNAP!', true); await snapLine('squid'); }
@@ -1082,6 +1086,7 @@ function shareText(res){
 
 async function play(){
   fresh(); $('daySel').disabled = true;
+  track('start');
   banner('ROUND 1 · SURFACE');
   await round1();
   banner('ROUND 2 · MID-WATER');
@@ -1095,6 +1100,7 @@ async function play(){
     bottomNote: b.type==='hook' ? (b.win?'Bare hook catch':'Bare hook, no catch') : (b.win ? (b.prize==='whale' ? 'Bait tripled. Caught whale, sank barge.' : 'Bait tripled') : 'Bait lost'),
   };
   store.set(res);
+  track('finish', { score:res.score });
   results(res);
 }
 
@@ -1108,6 +1114,15 @@ function playerId(){
     LS.set('dailycrank-player', id);
   }
   return id;
+}
+// Gameplay events for the dc_events table. Skipped in test mode so prototype runs don't count.
+function track(name, data){
+  if(TEST) return;
+  try{
+    const body = JSON.stringify({ player:playerId(), day:isoOf(new Date()), quizDay:dayKey, name, data:data||{} });
+    if(!(navigator.sendBeacon && navigator.sendBeacon(API + '/event', body)))
+      fetch(API + '/event', { method:'POST', body, keepalive:true }).catch(()=>{});
+  }catch(e){}
 }
 const liveKey = ()=> DAY_KEYS.filter(k=>k<=isoOf(new Date())).pop() || DAY_KEYS[0];
 const lbHead = `<h3 class="lb-title">Today's leaderboard</h3>`;
@@ -1187,6 +1202,7 @@ function results(res){
      ${TEST ? '<button class="link" id="again">Fish again (prototype only)</button>' : ''}`;
   $('copyBtn').onclick = ()=>{
     const msg = $('copyMsg');
+    track('share');
     const fallback = ()=>{ const r=document.createRange(); r.selectNodeContents($('shareText')); const s=getSelection(); s.removeAllRanges(); s.addRange(r); msg.textContent='Selected. Press Copy on your device.'; };
     const text = shareText(res);
     try { navigator.clipboard.writeText(text).then(()=>msg.textContent='Copied! Paste it in a text or post.', fallback); } catch(e){ fallback(); }
@@ -1220,7 +1236,7 @@ daySel.value = dayKey;
 daySel.onchange = ()=>{ clearInterval(cdTimer); setDay(daySel.value); boot(); };
 }
 panel.innerHTML = '<div class="eyebrow">Going deep!</div><p class="muted">Loading today\'s trip…</p>';
-loadQuestions().then(()=>{ setDay(dayKey); setupDays(); boot(); }).catch(err=>{
+loadQuestions().then(()=>{ setDay(dayKey); setupDays(); track('view', { played:!!store.get() }); boot(); }).catch(err=>{
   console.error(err);
   panel.innerHTML = '<div class="eyebrow">Snag!</div><p>Today\'s questions didn\'t load. Check your connection and refresh to try again.</p>';
 });
