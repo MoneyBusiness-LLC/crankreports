@@ -586,5 +586,252 @@
         "Quicksand"
       ]
     }
+  },
+  "2026-11-01": {
+    "surface": [
+      {
+        "topic": "Aviation",
+        "question": "Sully Sullenberger is a",
+        "answer": "Pilot",
+        "wrong": [
+          "Monster",
+          "Rabbi",
+          "Tennis icon"
+        ]
+      },
+      {
+        "topic": "Culture",
+        "question": "What is the most popular Halloween costume for dogs",
+        "answer": "Pumpkin",
+        "wrong": [
+          "Hot dog",
+          "Ghost",
+          "Superhero"
+        ]
+      },
+      {
+        "topic": "Science",
+        "question": "Which current is responsible for transporting the majority of heat from the equator to the North Pole?",
+        "answer": "Gulf Stream",
+        "wrong": [
+          "North Pacific Gyre",
+          "Humboldt Current",
+          "Kuroshio Current"
+        ]
+      },
+      {
+        "topic": "Books",
+        "question": "Murakami book",
+        "answer": "The Wind-Up Bird Chronicle",
+        "wrong": [
+          "Latka on the Shore",
+          "1984",
+          "Mediterranean Wood"
+        ]
+      },
+      {
+        "topic": "Sports",
+        "question": "2026 World Series winner",
+        "answer": "Brewers",
+        "wrong": [
+          "Rays",
+          "Dodgers",
+          "Padres"
+        ]
+      }
+    ],
+    "midwater": [
+      {
+        "question": "How many Dan Sullivans are running in the Alaska Midterm elections?",
+        "answer": 2,
+        "unit": "Dan Sullivans",
+        "min": 0,
+        "max": 10
+      },
+      {
+        "question": "How much does a banana really cost? (avg price per pound in the US)",
+        "answer": 0.66,
+        "unit": "dollars per pound",
+        "min": 0,
+        "max": 10,
+        "step": 0.01
+      },
+      {
+        "question": "How much larger is the sun's diameter than the moon?",
+        "answer": 400,
+        "unit": "times bigger",
+        "min": 1,
+        "max": 1000
+      }
+    ],
+    "bottom": {
+      "clue": "Should you steal bread to feed your family (yes/no)",
+      "answer": "Yes",
+      "alsoAccept": []
+    }
+  },
+  "2026-11-02": {
+    "surface": [
+      {
+        "topic": "Nature",
+        "question": "What color is a lobster's blood?",
+        "answer": "Blue",
+        "wrong": [
+          "Red",
+          "Green",
+          "Butter yellow"
+        ]
+      },
+      {
+        "topic": "Movies",
+        "question": "Tom Hanks' volleyball co-star in *Cast Away*",
+        "answer": "Wilson",
+        "wrong": [
+          "Spalding",
+          "Mikasa",
+          "Jeff"
+        ]
+      },
+      {
+        "topic": "History",
+        "question": "Which president was a licensed bartender?",
+        "answer": "Abraham Lincoln",
+        "wrong": [
+          "Ulysses S. Grant",
+          "Andrew Jackson",
+          "George Washington"
+        ]
+      },
+      {
+        "topic": "Geography",
+        "question": "The Mariana Trench is in which ocean?",
+        "answer": "Pacific",
+        "wrong": [
+          "Atlantic",
+          "Indian",
+          "Arctic"
+        ]
+      },
+      {
+        "topic": "Tech",
+        "question": "What does GIF stand for?",
+        "answer": "Graphics Interchange Format",
+        "wrong": [
+          "Graphic Image File",
+          "General Image Format",
+          "Giant Internet Funny"
+        ]
+      }
+    ],
+    "midwater": [
+      {
+        "question": "Daylight saving time just ended. How many US states don't observe it at all?",
+        "answer": 2,
+        "unit": "states",
+        "min": 0,
+        "max": 20
+      },
+      {
+        "question": "How many bones are in the adult human body?",
+        "answer": 206,
+        "unit": "bones",
+        "min": 50,
+        "max": 500
+      },
+      {
+        "question": "How old is the oldest known Greenland shark, in years (estimated)?",
+        "answer": 392,
+        "unit": "years",
+        "min": 50,
+        "max": 1000
+      }
+    ],
+    "bottom": {
+      "clue": "Type of airship that burned at Lakehurst in 1937; Jimmy Page's band was a \"Led\" one",
+      "answer": "Zeppelin",
+      "alsoAccept": []
+    }
+  },
+  "2026-11-03": {
+    "surface": [
+      {
+        "topic": "Politics",
+        "question": "Election Day is the first Tuesday after the first ___ in November",
+        "answer": "Monday",
+        "wrong": [
+          "Sunday",
+          "Friday",
+          "Full moon"
+        ]
+      },
+      {
+        "topic": "Politics",
+        "question": "How many years is a U.S. senator's term?",
+        "answer": "6",
+        "wrong": [
+          "2",
+          "4",
+          "8"
+        ]
+      },
+      {
+        "topic": "History",
+        "question": "Which president served the shortest term?",
+        "answer": "William Henry Harrison",
+        "wrong": [
+          "James Garfield",
+          "Zachary Taylor",
+          "Warren Harding"
+        ]
+      },
+      {
+        "topic": "Sports",
+        "question": "The 2026 World Cup final was played in which state?",
+        "answer": "New Jersey",
+        "wrong": [
+          "New York",
+          "Texas",
+          "California"
+        ]
+      },
+      {
+        "topic": "Food",
+        "question": "Which food never spoils?",
+        "answer": "Honey",
+        "wrong": [
+          "Twinkies",
+          "Peanut butter",
+          "Ketchup"
+        ]
+      }
+    ],
+    "midwater": [
+      {
+        "question": "How many U.S. Senate seats are on today's ballot?",
+        "answer": 35,
+        "unit": "seats",
+        "min": 0,
+        "max": 100
+      },
+      {
+        "question": "How old do you have to be to run for U.S. Senate?",
+        "answer": 30,
+        "unit": "years old",
+        "min": 18,
+        "max": 60
+      },
+      {
+        "question": "How many electoral votes does California have?",
+        "answer": 54,
+        "unit": "electoral votes",
+        "min": 0,
+        "max": 100
+      }
+    ],
+    "bottom": {
+      "clue": "Thomas Nast's 1874 cartoon made this the Republican symbol; also never forgets",
+      "answer": "Elephant",
+      "alsoAccept": []
+    }
   }
 }
