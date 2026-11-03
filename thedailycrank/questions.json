@@ -766,42 +766,42 @@
       },
       {
         "topic": "Politics",
-        "question": "How many years is a U.S. senator's term?",
-        "answer": "6",
+        "question": "Which Democrat came within 3 points of beating Ted Cruz in 2018?",
+        "answer": "Beto O'Rourke",
         "wrong": [
-          "2",
-          "4",
-          "8"
+          "Colin Allred",
+          "Wendy Davis",
+          "Julián Castro"
         ]
       },
       {
-        "topic": "History",
-        "question": "Which president served the shortest term?",
-        "answer": "William Henry Harrison",
+        "topic": "Politics",
+        "question": "Which state's Senate race this year is the most expensive non-presidential race ever, by ad spending?",
+        "answer": "Texas",
         "wrong": [
-          "James Garfield",
-          "Zachary Taylor",
-          "Warren Harding"
+          "Ohio",
+          "Georgia",
+          "Michigan"
         ]
       },
       {
-        "topic": "Sports",
-        "question": "The 2026 World Cup final was played in which state?",
-        "answer": "New Jersey",
+        "topic": "Politics",
+        "question": "When was the last time Texas elected a Democrat as Senator?",
+        "answer": "1988",
         "wrong": [
-          "New York",
-          "Texas",
-          "California"
+          "1978",
+          "1998",
+          "2008"
         ]
       },
       {
-        "topic": "Food",
-        "question": "Which food never spoils?",
-        "answer": "Honey",
+        "topic": "Politics",
+        "question": "How many seats need to be flipped for a Democratic majority Senate?",
+        "answer": "4",
         "wrong": [
-          "Twinkies",
-          "Peanut butter",
-          "Ketchup"
+          "3",
+          "5",
+          "6"
         ]
       }
     ],
@@ -814,24 +814,27 @@
         "max": 100
       },
       {
-        "question": "How old do you have to be to run for U.S. Senate?",
-        "answer": 30,
-        "unit": "years old",
-        "min": 18,
-        "max": 60
+        "question": "In 2016, how many minutes was Indiana's average wait to vote?",
+        "answer": 17,
+        "unit": "minutes",
+        "min": 0,
+        "max": 120
       },
       {
-        "question": "How many electoral votes does California have?",
-        "answer": 54,
-        "unit": "electoral votes",
-        "min": 0,
+        "question": "How tall is the world's tallest toilet-shaped house, in feet?",
+        "answer": 25,
+        "unit": "feet",
+        "min": 1,
         "max": 100
       }
     ],
     "bottom": {
-      "clue": "Thomas Nast's 1874 cartoon made this the Republican symbol; also never forgets",
-      "answer": "Elephant",
-      "alsoAccept": []
+      "clue": "Target of suspected Iranian hacks on military base grocery stores; coolest in the house",
+      "answer": "Freezer",
+      "alsoAccept": [
+        "Refrigerator",
+        "Fridge"
+      ]
     }
   }
 }
