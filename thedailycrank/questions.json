@@ -836,5 +836,87 @@
         "Fridge"
       ]
     }
+  },
+  "2026-11-04": {
+    "surface": [
+      {
+        "topic": "Politics",
+        "question": "Who won the Texas Senate race?",
+        "answer": "James Talarico",
+        "wrong": [
+          "Ken Paxton",
+          "Colin Allred",
+          "Beto O'Rourke"
+        ]
+      },
+      {
+        "topic": "Politics",
+        "question": "Gina Hinojosa just became the first Latina governor of which state?",
+        "answer": "Texas",
+        "wrong": [
+          "New Mexico",
+          "California",
+          "Arizona"
+        ]
+      },
+      {
+        "topic": "Politics",
+        "question": "Sherrod Brown won back an Ohio Senate seat once held by which vice president?",
+        "answer": "JD Vance",
+        "wrong": [
+          "Mike Pence",
+          "Joe Biden",
+          "Kamala Harris"
+        ]
+      },
+      {
+        "topic": "Politics",
+        "question": "Which party won control of both the House and the Senate?",
+        "answer": "Democrats",
+        "wrong": [
+          "Republicans",
+          "Neither",
+          "The Whigs"
+        ]
+      },
+      {
+        "topic": "History",
+        "question": "Before Hinojosa, the last Democrat elected governor of Texas won in what year?",
+        "answer": "1990",
+        "wrong": [
+          "1974",
+          "2002",
+          "2010"
+        ]
+      }
+    ],
+    "midwater": [
+      {
+        "question": "How many years had Democrats gone without winning the Texas governor's race?",
+        "answer": 36,
+        "unit": "years",
+        "min": 0,
+        "max": 100
+      },
+      {
+        "question": "How many millions of dollars were spent on ads in the Texas Senate race?",
+        "answer": 560,
+        "unit": "million dollars",
+        "min": 0,
+        "max": 1000
+      },
+      {
+        "question": "How old is Sherrod Brown?",
+        "answer": 73,
+        "unit": "years old",
+        "min": 30,
+        "max": 100
+      }
+    ],
+    "bottom": {
+      "clue": "South Park is now South ________",
+      "answer": "America",
+      "alsoAccept": []
+    }
   }
 }
