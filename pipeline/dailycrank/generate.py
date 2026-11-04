@@ -31,6 +31,7 @@ from pydantic import BaseModel
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import ingest  # noqa: E402
 import validate  # noqa: E402
+from add_day import write_day  # noqa: E402
 
 HERE = Path(__file__).resolve().parent
 MODEL = os.environ.get("DC_MODEL", "claude-opus-5-5")
@@ -263,13 +264,6 @@ def pick(day: str, cands: Candidates, verdicts: dict[str, Verdict], themed: bool
     if errs:
         raise SystemExit("The assembled day fails validation:\n" + "\n".join(errs))
     return entry, chosen, warns
-
-
-def write_day(path: Path, data: dict, day: str, entry: dict) -> None:
-    data[day] = entry
-    meta = {k: v for k, v in data.items() if not validate.DAY_KEY.match(k)}
-    days = {k: data[k] for k in sorted(k for k in data if validate.DAY_KEY.match(k))}
-    path.write_text(json.dumps({**meta, **days}, indent=2, ensure_ascii=False), encoding="utf-8")
 
 
 # ---------- PR body ----------

@@ -1,11 +1,12 @@
 name: Daily Crank questions
 
-# Drafts tomorrow's questions every evening and opens a PR for review.
+# API-key version of the pipeline: drafts a day and opens a PR for review.
 # Merging the PR publishes the day. Needs the ANTHROPIC_API_KEY repo secret.
+# Nightly runs currently come from a Claude Code scheduled task (see RUNBOOK.md),
+# so this only runs by hand. To switch back, restore a schedule such as:
+#   schedule:
+#     - cron: "7 2 * * *"   # UTC: 6:07pm Pacific in winter, 7:07pm in summer
 on:
-  schedule:
-    # Cron runs in UTC: 6:07pm Pacific in winter (PST), 7:07pm in summer (PDT).
-    - cron: "7 2 * * *"
   workflow_dispatch:
     inputs:
       date:
