@@ -63,7 +63,9 @@ header{display:flex;align-items:center;justify-content:space-between;gap:12px}
 .fatal.on .pts{opacity:1;transform:scale(1)}
 .score.bump{animation:bump .6s ease-out 3}
 @keyframes bump{50%{transform:scale(1.15);background:#3a2a00}}
-.fatal small{font:500 15px var(--body);color:#fff;text-shadow:0 2px 0 #000}
+.inked{background:rgba(12,4,24,.25)}
+.inked b{color:#f3ecff;text-shadow:0 5px 0 #4a1f78}
+.fatal small{font:500 15px var(--body);color:#fff;text-align:center;padding:0 12px;text-shadow:0 2px 0 #000}
 #scene{transition:filter 1.4s}
 #scene.wasted{filter:grayscale(.9) contrast(1.15) brightness(.8)}
 .panel{background:var(--panel);border:4px solid var(--edge);box-shadow:0 6px 0 var(--edge);padding:16px;display:flex;flex-direction:column;gap:12px;min-height:240px}
@@ -161,6 +163,7 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--sun);outline-of
     <div class="roastbox" id="roastbox" hidden><p class="roast-text" id="roastText" aria-live="assertive"></p><button class="btn ack" id="ack">Yessir, I agree</button></div>
     <p class="praise" id="praise" aria-live="polite"></p>
     <div class="fatal" id="fatal"><b>FATALITY</b><span class="pts" id="fatalPts"></span><small>Your barge sank. But you caught a whale. Worth it.</small></div>
+    <div class="fatal inked" id="inked"><b>INKED</b><span class="pts" id="inkedPts"></span><small>You got inked bro. Worth it, you caught a giant squid.</small></div>
   </div>
   <section class="panel" id="panel" aria-live="polite"></section>
   <p class="note" id="testTools">Prototype · <label for="daySel">Test day</label> <select id="daySel"></select></p>
@@ -241,7 +244,10 @@ const store = {
 };
 
 // ---------- canvas basics ----------
-const cv = document.getElementById('scene'), ctx = cv.getContext('2d');
+const cv = document.getElementById('scene'), ctx0 = cv.getContext('2d');
+let ctx = ctx0;
+const lay = document.createElement('canvas'); lay.width = 192; lay.height = 144; const lctx = lay.getContext('2d');
+const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const W = 192, H = 144, WY = 46, SANDY = 132, HANG = WY - 8;
 const DEPTH = [64, 94, 122];
 ctx.imageSmoothingEnabled = false;
@@ -257,7 +263,7 @@ function seaCol(y){
   return ZONES[2][2][2];
 }
 
-const S = { T:0, sink:0, noLine:false, hookY:HANG, jerk:0, bend:0, lean:0, crankA:0, shake:0, bob:0, hooked:null, bait:null, snap:null, flying:null, pile:0 };
+const S = { T:0, sink:0, noLine:false, hookY:HANG, jerk:0, bend:0, lean:0, crankA:0, shake:0, bob:0, hooked:null, bait:null, snap:null, flying:null, pile:0, ink:null, inked:null };
 const swimmers = [], bubbles = [];
 
 // ---------- procedural little fish ----------
@@ -650,9 +656,11 @@ function draw(){
   swimmers.forEach(e=>{ if(e.type==='whale') drawEntity(e); });
   swimmers.forEach(e=>{ if(e.type!=='whale') drawEntity(e); });
   bubbles.forEach(o=>{ px(o.x,o.y,'#d6f6ff'); });
+  if(S.inked){ lctx.clearRect(0,0,W,H); ctx = lctx; }
   drawBarge();
   const {fx, fy} = drawMan();
   const {tx:tipX, ty:tipY} = drawRodAndArms(fx, fy);
+  if(S.inked){ inkStains(fx, fy); ctx = ctx0; ctx.drawImage(lay, 0, 0); }
   const sway = S.hookY>WY && !S.hooked ? Math.round(Math.sin(S.T*1.4)) : 0;
   const hookX = tipX + sway;
   S.tipX = tipX;
@@ -687,6 +695,59 @@ function draw(){
     rect(0, WY+1, W, bot-WY-1, '#1a3f8f');
     ctx.globalAlpha = 1;
   }
+  drawInk();
+}
+
+// ---------- squid ink ----------
+const INK = '#150b22', INK2 = '#3a2358';
+function disc(cx, cy, r, c){
+  for(let dy=-Math.floor(r); dy<=r; dy++){ const w = Math.floor(Math.sqrt(r*r-dy*dy)); rect(cx-w, cy+dy, 2*w+1, 1, c); }
+}
+function makeInk(cx, cy){
+  const splats = [];
+  for(let i=0;i<70;i++){
+    const x = rnd(-12,W+12), y = rnd(-12,H+12), t = Math.min(.72, Math.hypot(x-cx,y-cy)/230*.75 + rnd(0,.1));
+    splats.push({ x, y, r:rnd(12,26), t });
+    for(let j=0;j<3;j++) splats.push({ x:x+rnd(-30,30), y:y+rnd(-30,30), r:rnd(1,3), t:t*.9 });
+  }
+  splats.sort((a,b)=>a.t-b.t);
+  const lag = [], ph = rnd(0,9);
+  for(let x=0;x<W;x++) lag[x] = .14 + .07*Math.sin(x*.11+ph) + .05*Math.sin(x*.29+ph*2);
+  for(let i=0;i<16;i++){ const x0 = Math.floor(rnd(0,W)), w = 1+Math.floor(rnd(0,3)), extra = rnd(.08,.3);
+    for(let x=x0; x<x0+w && x<W; x++) lag[x] += extra; }
+  return { splats, lag, spray:0, drip:0, fade:1 };
+}
+function drawInk(){
+  const k = S.ink; if(!k) return;
+  ctx.globalAlpha = k.fade;
+  if(k.drip<=0){
+    if(k.spray>=1) rect(0,0,W,H,INK);
+    else k.splats.forEach(s=>{ const q = Math.max(0, Math.min(1, (k.spray-s.t)/.22)); if(q>0) disc(s.x, s.y, s.r*q, INK); });
+  } else {
+    for(let x=0;x<W;x++){
+      const q = Math.max(0, Math.min(1, (k.drip-k.lag[x])/(1-k.lag[x])));
+      const top = Math.round(-4 + Math.pow(q,1.7)*(H+10));
+      if(top<H){ rect(x, top, 1, H-top, INK); px(x, top, INK2); }
+    }
+  }
+  ctx.globalAlpha = 1;
+}
+// stains stuck to the barge and the man after the ink drips off (drawn only on top of them)
+function makeStains(){
+  const barge = [], man = [];
+  for(let i=0;i<30;i++) barge.push({ x:Math.round(rnd(BX0+4,BX1)), dy:Math.round(rnd(-16,7)), r:rnd(2,6), run:Math.round(rnd(0,6)) });
+  for(let i=0;i<7;i++) man.push({ dx:Math.round(rnd(0,12)), dy:Math.round(rnd(0,21)), r:rnd(1.2,2.6), run:Math.round(rnd(0,4)) });
+  return { barge, man };
+}
+function inkStains(fx, fy){
+  const st = S.inked;
+  lctx.globalCompositeOperation = 'source-atop';
+  const one = (x,y,s)=>{ disc(x, y, s.r, INK); if(s.run) rect(x, y, 1, s.r+s.run, INK); px(x-1, y-1, INK2); };
+  st.barge.forEach(s=>one(s.x, deckTop(s.x)+s.dy, s));
+  st.man.forEach(s=>one(fx+s.dx, fy+s.dy, s));
+  lctx.globalCompositeOperation = 'source-over';
+  // his eyes blink out of the ink
+  for(let r=0;r<MAN.length;r++) for(let c=0;c<MAN[r].length;c++) if(MAN[r][c]==='E') px(fx+c+manOff(r), fy+r, '#ffffff');
 }
 
 // ---------- loop + tweens ----------
@@ -780,6 +841,25 @@ async function catchWhale(bet){
   updateScore(); const sc = document.querySelector('.score'); sc.classList.remove('bump'); void sc.offsetWidth; sc.classList.add('bump');
   $('scene').classList.add('wasted'); $('fatal').classList.add('on');
   await wait(3.2);
+}
+async function catchSquid(bet){
+  S.bait = null;
+  await jerk();
+  const f = makeCreature('squid', { scale:2 }); S.hooked = f;
+  await crank(HANG, 2.2, true);
+  await animate(.45, ()=>{ S.shake = 1; });                       // it thrashes at the surface…
+  S.ink = makeInk(f.x + f.w/2, f.y + f.h/2);
+  await animate(RM ? .25 : .9, p=>{ S.ink.spray = p; S.shake = RM ? 0 : (p<.6 ? 1 : 0); }); // …and lets him have it
+  S.ink.spray = 1; S.shake = 0;
+  await flyToPile(f);                                             // hauled aboard behind the ink
+  S.inked = makeStains(); hideBanner();
+  $('inkedPts').textContent = `+${fmt(bet*2)} POINTS`;
+  updateScore(); const sc = document.querySelector('.score'); sc.classList.remove('bump'); void sc.offsetWidth; sc.classList.add('bump');
+  $('inked').classList.add('on');
+  if(RM) await animate(1.2, p=>{ S.ink.fade = 1-p; });
+  else await animate(3.6, p=>{ S.ink.drip = p; });                // drips off slowly
+  S.ink = null;
+  await wait(2);
 }
 async function snapLine(type){
   await jerk();
@@ -955,8 +1035,8 @@ function askWord(q, limit, eyebrow){
 
 // ---------- game state ----------
 let R;
-function fresh(){ R = { catches:[], r1:[], r2:[], bottom:null, picks:{ r1:[], r2:[], r3:null } }; S.hookY = HANG; S.bait=null; S.hooked=null; S.flying=null; S.sink=0; S.noLine=false;
-  $('scene').classList.remove('wasted'); $('fatal').classList.remove('on'); updateScore(); }
+function fresh(){ R = { catches:[], r1:[], r2:[], bottom:null, picks:{ r1:[], r2:[], r3:null } }; S.hookY = HANG; S.bait=null; S.hooked=null; S.flying=null; S.sink=0; S.noLine=false; S.ink=null; S.inked=null;
+  $('scene').classList.remove('wasted'); $('fatal').classList.remove('on'); $('inked').classList.remove('on'); updateScore(); }
 function baseSum(round){ return R.catches.filter(c=>c.round===round).reduce((s,c)=>s+c.base,0); }
 function bottomDelta(){ const b=R.bottom; if(!b) return 0; if(b.type==='hook') return b.win?100:0; return b.win ? 2*b.bet : -b.bet; }
 function total(){ return baseSum(1)+baseSum(2)+bottomDelta(); }
@@ -1055,7 +1135,9 @@ async function round3(){
       R.bottom = { type:'bait', win:true, bet:c.base, prize };
       feedback(`${q.show}! A ${KIND[prize].name}! +${fmt(c.base*2)} (bait tripled to ${fmt(c.base*3)})`, true);
       banner(KIND[prize].name.toUpperCase()+'!'); praise();
-      if(prize==='whale') await catchWhale(c.base); else await catchIt(prize, { scale:2, slow:true });
+      if(prize==='whale') await catchWhale(c.base);
+      else if(prize==='squid') await catchSquid(c.base);
+      else await catchIt(prize, { scale:2, slow:true });
     } else {
       R.bottom = { type:'bait', win:false, bet:c.base };
       feedback(`Snap! It was ${q.show}. Your bait swam off with ${c.base} pts.`, false);
@@ -1092,7 +1174,7 @@ async function play(){
     score: total(), r1:R.r1, r2:R.r2, picks:R.picks, quizDay:dayKey, boardDay:isoOf(new Date()),
     s1: baseSum(1), s2: baseSum(2), d3: bottomDelta(),
     bottomEmoji: b.win ? ({crab:'🦀', squid:'🦑', whale:'🐋💀'})[b.prize] : '❌',
-    bottomNote: b.type==='hook' ? (b.win?'Bare hook catch':'Bare hook, no catch') : (b.win ? (b.prize==='whale' ? 'Bait tripled. Caught whale, sank barge.' : 'Bait tripled') : 'Bait lost'),
+    bottomNote: b.type==='hook' ? (b.win?'Bare hook catch':'Bare hook, no catch') : (b.win ? (b.prize==='whale' ? 'Bait tripled. Caught whale, sank barge.' : b.prize==='squid' ? 'Bait tripled. Caught squid, got inked.' : 'Bait tripled') : 'Bait lost'),
   };
   store.set(res);
   results(res);
