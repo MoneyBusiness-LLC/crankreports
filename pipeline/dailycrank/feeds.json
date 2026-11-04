@@ -1,0 +1,19 @@
+{
+  "_howto": "Headline sources for the Daily Crank question pipeline. 'kind' is rss (RSS or Atom), google_trends, or wikipedia_mostread. Add or remove feeds freely; a feed that fails is skipped with a warning.",
+  "feeds": [
+    { "name": "NPR News",          "topic": "News",          "kind": "rss", "url": "https://feeds.npr.org/1001/rss.xml" },
+    { "name": "NPR Politics",      "topic": "Politics",      "kind": "rss", "url": "https://feeds.npr.org/1014/rss.xml" },
+    { "name": "BBC World",         "topic": "World",         "kind": "rss", "url": "https://feeds.bbci.co.uk/news/world/rss.xml" },
+    { "name": "ESPN",              "topic": "Sports",        "kind": "rss", "url": "https://www.espn.com/espn/rss/news" },
+    { "name": "CBS Sports",        "topic": "Sports",        "kind": "rss", "url": "https://www.cbssports.com/rss/headlines/" },
+    { "name": "Variety",           "topic": "Entertainment", "kind": "rss", "url": "https://variety.com/feed/" },
+    { "name": "Billboard",         "topic": "Music",         "kind": "rss", "url": "https://www.billboard.com/feed/" },
+    { "name": "XXL",               "topic": "Hip-hop",       "kind": "rss", "url": "https://www.xxlmag.com/feed/" },
+    { "name": "The Verge",         "topic": "Tech",          "kind": "rss", "url": "https://www.theverge.com/rss/index.xml" },
+    { "name": "ScienceDaily",      "topic": "Science",       "kind": "rss", "url": "https://www.sciencedaily.com/rss/top/science.xml" },
+    { "name": "NASA",              "topic": "Space",         "kind": "rss", "url": "https://www.nasa.gov/news-release/feed/" },
+    { "name": "NPR Science",       "topic": "Science",       "kind": "rss", "url": "https://feeds.npr.org/1007/rss.xml" },
+    { "name": "Google Trends US",  "topic": "Trending",      "kind": "google_trends", "url": "https://trends.google.com/trending/rss?geo=US" },
+    { "name": "Wikipedia most read", "topic": "Trending",    "kind": "wikipedia_mostread", "url": "https://en.wikipedia.org/api/rest_v1/feed/featured/{yyyy}/{mm}/{dd}" }
+  ]
+}
