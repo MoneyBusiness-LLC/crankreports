@@ -5,12 +5,12 @@ name: Daily Crank questions
 # Nightly runs currently come from a Claude Code scheduled task (see RUNBOOK.md),
 # so this only runs by hand. To switch back, restore a schedule such as:
 #   schedule:
-#     - cron: "7 2 * * *"   # UTC: 6:07pm Pacific in winter, 7:07pm in summer
+#     - cron: "1 8 * * *"   # UTC: 12:01am Pacific in winter, 1:01am in summer
 on:
   workflow_dispatch:
     inputs:
       date:
-        description: "Day to write, YYYY-MM-DD. Leave blank for tomorrow (Pacific time)."
+        description: "Day to write, YYYY-MM-DD. Leave blank for today (Pacific time)."
         required: false
       theme:
         description: "Optional theme, e.g. 'Election results' or 'Thanksgiving'."

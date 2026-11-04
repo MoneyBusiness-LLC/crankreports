@@ -1,11 +1,11 @@
 # Daily Crank question pipeline
 
-Every evening, the next day's questions are drafted from the week's headlines and opened as a PR. Approving and merging the PR publishes the day. There are two ways to run the drafting, and both use the same files here:
+Just after midnight Pacific, that day's questions are drafted from the previous day's headlines and opened as a PR. Approving and merging the PR publishes the day; until then, players get the previous day again. There are two ways to run the drafting, and both use the same files here:
 
 | | **Claude Code scheduled task** (current, trial through Nov 11) | **GitHub Action with an API key** (backup) |
 |---|---|---|
 | Instructions | `RUNBOOK.md` + `prompt.md` | `generate.py` + `prompt.md` |
-| When | 5:38pm Pacific daily | By hand: Actions → *Daily Crank questions* → *Run workflow* |
+| When | 12:01am Pacific daily | By hand: Actions → *Daily Crank questions* → *Run workflow* |
 | Billed to | Your Claude plan's usage | `ANTHROPIC_API_KEY` (exact cost shown on each PR) |
 
 The scheduled task's prompt only says "follow `pipeline/dailycrank/RUNBOOK.md`", so the process lives in this repo and changes go through PRs. The schedule itself lives in Claude Code; to pause, extend or retime it, ask Claude in the session that set it up, or in any Claude Code session.
@@ -16,7 +16,7 @@ headlines ──► draft ──► fact-check ──► pick + validate ──�
               search    second pass    validate.py
 ```
 
-1. **Ingest** (`ingest.py`, `feeds.json`): pulls the last 7 days from news, sports, entertainment, music, hip-hop, tech and science feeds, plus Google Trends and Wikipedia's most-read articles. Edit `feeds.json` to add or drop sources.
+1. **Ingest** (`ingest.py`, `feeds.json`): pulls the last 7 days, with the previous day's news leading, from news, sports, entertainment, music, hip-hop, tech and science feeds, plus Google Trends and Wikipedia's most-read articles. Edit `feeds.json` to add or drop sources.
 2. **Draft**: Claude writes 10 surface, 6 mid-water and 3 bottom candidates in the house style (`prompt.md`), using web search to confirm each one. It sees the last 30 days so it won't repeat itself.
 3. **Fact-check**: a separate Claude pass checks every candidate from scratch and marks it ok, unsure or reject.
 4. **Pick**: takes the best "ok" candidates (falling back to "unsure", which is flagged in the PR), keeps the surface topics varied, and drops anything `validate.py` rejects.
@@ -34,7 +34,7 @@ headlines ──► draft ──► fact-check ──► pick + validate ──�
 pip install -r pipeline/dailycrank/requirements.txt
 export ANTHROPIC_API_KEY=...
 python pipeline/dailycrank/ingest.py --days 3                        # just look at headlines (no key needed)
-python pipeline/dailycrank/generate.py --dry-run --out /tmp/dc       # draft tomorrow without touching questions.json
+python pipeline/dailycrank/generate.py --dry-run --out /tmp/dc       # draft today without touching questions.json
 python pipeline/dailycrank/generate.py --date 2026-11-05 --theme "Election results"
 python pipeline/dailycrank/validate.py                               # check yesterday onward (no key needed)
 python pipeline/dailycrank/validate.py --all                         # check every day

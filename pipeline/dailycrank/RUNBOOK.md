@@ -6,7 +6,9 @@ These are the instructions Claude follows on each scheduled run. The scheduled t
 
 | Setting | Value |
 |---|---|
-| Target day | Tomorrow, in Pacific time |
+| When it runs | 12:01am Pacific, at the start of the day it drafts |
+| Target day | Today, in Pacific time (the day that just started) |
+| Headline focus | Yesterday's news first (the day before the target day); the rest of the week as backup |
 | Trial | Draft days up to and including **2026-11-11**. After that, stop (see step 0). |
 | Repo | `moneybusiness-llc/crankreports`, base branch `main` |
 | Branch per day | `daily-crank/<YYYY-MM-DD>` |
@@ -25,7 +27,7 @@ These are the instructions Claude follows on each scheduled run. The scheduled t
 
 ### 0. Set up and decide whether to run
 1. Work in a checkout of the repo on an up-to-date `main` (`git fetch origin main && git checkout -B main origin/main`).
-2. `DAY=$(TZ=America/Los_Angeles date -d tomorrow +%F)`
+2. `DAY=$(TZ=America/Los_Angeles date +%F)`. The run starts just after midnight Pacific, so this is the day that just began.
 3. Stop without changing anything if:
    - `DAY` is after the trial end date above. Say the trial is over and the scheduled task should be turned off or extended.
    - `DAY` is already in `thedailycrank/questions.json`, because someone wrote it by hand.
@@ -34,10 +36,12 @@ These are the instructions Claude follows on each scheduled run. The scheduled t
 ### 1. Headlines
 Run `python3 pipeline/dailycrank/ingest.py --days 7 > "$TMPDIR/headlines.txt"` and read the result. Note any feeds it skipped. A few failures are fine; if most fail, stop.
 
+Lead with what happened **yesterday**, the day before `DAY`: results, releases, announcements and whatever people were searching. The day should feel like it knows what everyone was talking about. Use the rest of the week to fill gaps.
+
 Also read the last 30 days of `questions.json` so you don't repeat questions, answers or main subjects.
 
 ### 2. Draft
-Read `prompt.md` and follow it. It's the style guide and the rules for each round. Pick the strongest hooks from the headlines and write the candidate counts from Settings, best first. For each candidate, keep:
+Read `prompt.md` and follow it. It's the style guide and the rules for each round. Pick the strongest hooks from the headlines, leaning on yesterday's, and write the candidate counts from Settings, best first. For each candidate, keep:
 - an id (`s1`…, `m1`…, `b1`…)
 - the hook: the headline, or why the question is timely
 - one source URL confirming the answer, found with web search
@@ -63,7 +67,7 @@ It should also give a one-line note and the URL it relied on. Don't override a r
 2. Open a PR into `main` titled `Daily Crank: <Thu Nov 5> questions`, with this body:
 
 ```markdown
-Drafted by Claude from this week's headlines. **Approving and merging publishes <Thu Nov 5>.** To swap a question, edit `thedailycrank/questions.json` on this branch; alternates are below.
+Drafted by Claude from yesterday's headlines. **Approving and merging publishes <Thu Nov 5>.** To swap a question, edit `thedailycrank/questions.json` on this branch; alternates are below.
 
 ### Surface
 | | Topic | Question | Answer | Wrong | Why | Check |
@@ -102,4 +106,4 @@ Drafted by Claude from this week's headlines. **Approving and merging publishes 
 (Use real triple backticks around the JSON; they're broken up above only so this file renders.) Use ⚠️ for unsure. End the body with any attribution lines your session requires.
 
 ### 6. Report
-Finish with a short message: the day, the PR link, the 9 chosen questions in one line each, and anything flagged. That message is the notification the editors see.
+The day isn't live until the PR is merged; until then players get the previous day again. Finish with a short message: the day, the PR link, the 9 chosen questions in one line each, and anything flagged. That message is the notification the editors see.
