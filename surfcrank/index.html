@@ -136,14 +136,10 @@
     margin-top: 32px;
   }
   .take {
-    display: flex;
-    gap: 16px;
-    align-items: flex-start;
     padding: 16px;
     border: 1px solid var(--rule);
     border-radius: 8px;
   }
-  .take img { flex: none; width: 64px; height: 64px; border-radius: 50%; object-fit: cover; }
   .take h2 { font-size: 16px; font-weight: 600; }
   .take p { margin-top: 2px; color: var(--ink-2); font-size: 15px; }
 
@@ -187,18 +183,12 @@
 
   <section class="takes" aria-label="Takes on the current surf">
     <article class="take">
-      <img src="../assets/jon.jpg" alt="Jon" width="64" height="64">
-      <div>
-        <h2>Jon's take:</h2>
-        <p id="take-jon">No take yet.</p>
-      </div>
+      <h2>Jon's take:</h2>
+      <p id="take-jon">No take yet.</p>
     </article>
     <article class="take">
-      <img src="../assets/kat.jpg" alt="Kat" width="64" height="64">
-      <div>
-        <h2>Kat's take:</h2>
-        <p id="take-kat">No take yet.</p>
-      </div>
+      <h2>Kat's take:</h2>
+      <p id="take-kat">No take yet.</p>
     </article>
   </section>
 
@@ -215,7 +205,6 @@
   <footer>
     <p>Significant wave height is the average of the largest third of waves. It's measured at the buoy, in about 135 ft of water, so it won't match the size of the waves breaking at the beach. Times are Pacific.</p>
     <p>Data from the <a href="https://cdip.ucsd.edu/m/products/?stn=201p1">Coastal Data Information Program (CDIP)</a>, Scripps Institution of Oceanography, station 201p1.</p>
-    <p>Photos: Jeff Dillon / Scripps Communications. &copy;2026 Scripps Institution of Oceanography, UC San Diego.</p>
     <noscript><p>This page needs JavaScript to load the buoy data.</p></noscript>
   </footer>
 </main>
