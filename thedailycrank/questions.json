@@ -918,5 +918,91 @@
       "answer": "America",
       "alsoAccept": []
     }
+  },
+  "2026-11-05": {
+    "surface": [
+      {
+        "topic": "Politics",
+        "question": "Before 2026, when did Kansas last elect a Democrat to the U.S. Senate?",
+        "answer": "1932",
+        "wrong": [
+          "1964",
+          "1978",
+          "1992"
+        ]
+      },
+      {
+        "topic": "Games",
+        "question": "*Ocarina of Time* first came out on which console?",
+        "answer": "Nintendo 64",
+        "wrong": [
+          "Super Nintendo",
+          "GameCube",
+          "Wii"
+        ]
+      },
+      {
+        "topic": "Movies",
+        "question": "Kylo Ren is the son of Han Solo and which character?",
+        "answer": "Leia",
+        "wrong": [
+          "Padmé",
+          "Rey",
+          "Mon Mothma"
+        ]
+      },
+      {
+        "topic": "Music",
+        "question": "Tupac Shakur's mother, a former Black Panther, was named?",
+        "answer": "Afeni Shakur",
+        "wrong": [
+          "Assata Shakur",
+          "Angela Davis",
+          "Kathleen Cleaver"
+        ]
+      },
+      {
+        "topic": "Sports",
+        "question": "Rafael Nadal won a record 14 titles at which Grand Slam?",
+        "answer": "French Open",
+        "wrong": [
+          "Wimbledon",
+          "US Open",
+          "Australian Open"
+        ]
+      }
+    ],
+    "midwater": [
+      {
+        "question": "How many episodes of *ER* aired?",
+        "answer": 331,
+        "unit": "episodes",
+        "min": 0,
+        "max": 1500
+      },
+      {
+        "question": "The odds of winning the Powerball jackpot are 1 in how many million?",
+        "answer": 292.2,
+        "unit": "million",
+        "min": 1,
+        "max": 2000,
+        "step": 0.1
+      },
+      {
+        "question": "How many grams of asteroid Ryugu did Japan's Hayabusa2 bring back to Earth?",
+        "answer": 5.4,
+        "unit": "grams",
+        "min": 0,
+        "max": 25,
+        "step": 0.1
+      }
+    ],
+    "bottom": {
+      "clue": "Hubble's part that was famously ground to the wrong shape before launch; also what you check your hair in",
+      "answer": "Mirror",
+      "alsoAccept": [
+        "Mirrors"
+      ]
+    }
   }
 }
