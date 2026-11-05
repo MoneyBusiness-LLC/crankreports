@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Surfcrank</title>
+<meta name="description" content="Live wave height from the CDIP Scripps Nearshore buoy.">
+<meta name="color-scheme" content="light dark">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uplot@1.6.32/dist/uPlot.min.css"
+  integrity="sha384-IfV0B7MIOYuO95kO9G5ySKPz/85zqFNOAs8iy4tkK5zd9izhJAB8b7lHrwYqqmYE" crossorigin="anonymous">
+<style>
+  :root {
+    --surface: #fcfcfb;
+    --ink: #0b0b0b;
+    --ink-2: #52514e;
+    --grid: #e9e8e4;
+    --rule: #d6d5cf;
+    --wash: #f0efeb;
+    --line: #2a78d6;
+    --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --surface: #1a1a19;
+      --ink: #f0efec;
+      --ink-2: #c3c2b7;
+      --grid: #2f2f2d;
+      --rule: #474743;
+      --wash: #292928;
+      --line: #3987e5;
+    }
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    min-height: 100vh;
+    background: var(--surface);
+    color: var(--ink);
+    font: 16px/1.5 var(--font);
+    -webkit-text-size-adjust: 100%;
+  }
+
+  main {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: clamp(24px, 6vw, 64px) 16px 48px;
+  }
+
+  a { color: inherit; text-underline-offset: 2px; }
+
+  header h1 { font-size: 16px; font-weight: 600; }
+  header p { color: var(--ink-2); font-size: 14px; }
+
+  .now { margin-top: 32px; }
+  .now .label { font-size: 14px; font-weight: 500; }
+  .now .value {
+    font-size: clamp(56px, 14vw, 80px);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+  .now .value small { font-size: 0.4em; font-weight: 500; letter-spacing: 0; color: var(--ink-2); }
+  .now .when { color: var(--ink-2); font-size: 14px; }
+
+  .status { margin-top: 12px; font-size: 14px; }
+  .status:empty { display: none; }
+  .status button { margin-left: 8px; }
+
+  .ranges { display: flex; gap: 4px; margin-top: 32px; }
+
+  button {
+    min-height: 36px;
+    padding: 0 12px;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    background: none;
+    color: var(--ink-2);
+    font: 500 14px var(--font);
+    cursor: pointer;
+  }
+  button:hover { background: var(--wash); }
+  button[aria-pressed="true"] { background: var(--wash); border-color: var(--rule); color: var(--ink); }
+  button:focus-visible, summary:focus-visible, a:focus-visible { outline: 2px solid var(--line); outline-offset: 2px; }
+  .status button { border-color: var(--rule); color: var(--ink); }
+
+  .chart { position: relative; margin-top: 16px; height: 340px; }
+  .chart .note {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    color: var(--ink-2);
+    font-size: 14px;
+    text-align: center;
+  }
+  .chart .note:empty { display: none; }
+  .u-over { touch-action: pan-y; }
+  .u-cursor-x { border-right: 1px solid var(--rule) !important; }
+
+  .tip {
+    position: absolute;
+    top: 8px;
+    left: 0;
+    z-index: 10;
+    padding: 6px 10px;
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    background: var(--surface);
+    font-size: 13px;
+    line-height: 1.35;
+    white-space: nowrap;
+    pointer-events: none;
+  }
+  .tip[hidden] { display: none; }
+  .tip strong { display: block; font-size: 15px; font-weight: 600; }
+  .tip strong::before {
+    content: "";
+    display: inline-block;
+    width: 12px;
+    height: 2px;
+    margin-right: 6px;
+    vertical-align: middle;
+    border-radius: 1px;
+    background: var(--line);
+  }
+  .tip span { color: var(--ink-2); }
+
+  .takes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    margin-top: 32px;
+  }
+  .take {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 16px;
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+  }
+  .take img { flex: none; width: 64px; height: 64px; border-radius: 50%; object-fit: cover; }
+  .take h2 { font-size: 16px; font-weight: 600; }
+  .take p { margin-top: 2px; color: var(--ink-2); font-size: 15px; }
+
+  details { margin-top: 24px; font-size: 14px; }
+  summary { cursor: pointer; color: var(--ink-2); padding: 4px 0; }
+  .table-wrap { max-height: 320px; margin-top: 8px; overflow-y: auto; border-top: 1px solid var(--grid); }
+  table { width: 100%; border-collapse: collapse; }
+  th, td { padding: 6px 0; border-bottom: 1px solid var(--grid); text-align: left; font-weight: 400; }
+  th { position: sticky; top: 0; background: var(--surface); color: var(--ink-2); }
+  th:last-child, td:last-child { text-align: right; font-variant-numeric: tabular-nums; }
+
+  footer { margin-top: 32px; color: var(--ink-2); font-size: 13px; }
+  footer p + p { margin-top: 8px; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Surfcrank</h1>
+    <p>Scripps Nearshore buoy, off La Jolla</p>
+  </header>
+
+  <section class="now" aria-label="Latest reading">
+    <p class="label">Significant wave height</p>
+    <p class="value" id="value">&ndash;</p>
+    <p class="when" id="when">Loading the latest reading&hellip;</p>
+    <p class="status" id="status" role="status"></p>
+  </section>
+
+  <div class="ranges" id="ranges" role="group" aria-label="Time range">
+    <button type="button" data-hours="24" aria-pressed="false">24h</button>
+    <button type="button" data-hours="72" aria-pressed="true">3d</button>
+    <button type="button" data-hours="168" aria-pressed="false">7d</button>
+    <button type="button" data-hours="360" aria-pressed="false">15d</button>
+  </div>
+
+  <div class="chart" id="chart" role="img" aria-label="Wave height over time, loading">
+    <div class="tip" id="tip" hidden><strong id="tip-value"></strong><span id="tip-time"></span></div>
+    <div class="note" id="note"></div>
+  </div>
+
+  <section class="takes" aria-label="Takes on the current surf">
+    <article class="take">
+      <img src="../assets/jon.jpg" alt="Jon" width="64" height="64">
+      <div>
+        <h2>Jon's take:</h2>
+        <p id="take-jon">No take yet.</p>
+      </div>
+    </article>
+    <article class="take">
+      <img src="../assets/kat.jpg" alt="Kat" width="64" height="64">
+      <div>
+        <h2>Kat's take:</h2>
+        <p id="take-kat">No take yet.</p>
+      </div>
+    </article>
+  </section>
+
+  <details id="details">
+    <summary>Show data table</summary>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th scope="col">Time (Pacific)</th><th scope="col">Height (ft)</th></tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+  </details>
+
+  <footer>
+    <p>Significant wave height is the average of the largest third of waves. It's measured at the buoy, in about 135 ft of water, so it won't match the size of the waves breaking at the beach. Times are Pacific.</p>
+    <p>Data from the <a href="https://cdip.ucsd.edu/m/products/?stn=201p1">Coastal Data Information Program (CDIP)</a>, Scripps Institution of Oceanography, station 201p1.</p>
+    <p>Photos: Jeff Dillon / Scripps Communications. &copy;2026 Scripps Institution of Oceanography, UC San Diego.</p>
+    <noscript><p>This page needs JavaScript to load the buoy data.</p></noscript>
+  </footer>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/uplot@1.6.32/dist/uPlot.iife.min.js"
+  integrity="sha384-Gx3t0zdBAuQOuvvmaLZj7HKEiSgWTAs+VdtNY7wt19QDPTDQjFIwAuXDj0zeN00c" crossorigin="anonymous"></script>
+<script>
+(function () {
+  'use strict';
+
+  var DATA_URL = 'https://thredds.cdip.ucsd.edu/thredds/dodsC/cdip/realtime/201p1_rt.nc.ascii?waveTime,waveHs,waveFlagPrimary';
+  var TIME_ZONE = 'America/Los_Angeles';
+  var FEET_PER_METER = 3.28084;
+  var READING_GAP_SECONDS = 45 * 60; // readings arrive every 30 minutes
+  var STALE_SECONDS = 3 * 3600;
+  var REFRESH_MS = 10 * 60 * 1000;
+  var FETCH_TIMEOUT_MS = 20000;
+
+  // Quotes by current wave height, smallest first. The first entry whose
+  // `underFeet` is above the latest reading is used. Example:
+  //   { underFeet: 2, jon: 'Flat.', kat: 'Go for a swim.' },
+  //   { underFeet: Infinity, jon: 'Firing.', kat: 'See you out there.' }
+  var TAKES = [];
+  var NO_TAKE = 'No take yet.';
+
+  var el = {};
+  ['value', 'when', 'status', 'ranges', 'chart', 'tip', 'tip-value', 'tip-time', 'note', 'details', 'rows', 'take-jon', 'take-kat']
+    .forEach(function (id) { el[id] = document.getElementById(id); });
+
+  var state = { times: [], feet: [], hours: 72, lastFetch: 0, fetching: false, chart: null, visible: null };
+
+  var tipFormat = new Intl.DateTimeFormat('en-US', {
+    timeZone: TIME_ZONE, weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit'
+  });
+  var whenFormat = new Intl.DateTimeFormat('en-US', {
+    timeZone: TIME_ZONE, weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', timeZoneName: 'short'
+  });
+
+  // ---- Data ---------------------------------------------------------------
+
+  // Parses an OPeNDAP ASCII response: a header, a row of dashes, then blocks of
+  // "name[count]" followed by comma-separated values.
+  function parseDap(text) {
+    var body = text.replace(/\r/g, '').split(/^-{5,}\s*$/m)[1];
+    if (!body) throw new Error('Unexpected response format');
+    var columns = {};
+    body.trim().split(/\n\s*\n/).forEach(function (block) {
+      var match = block.match(/^(\w+)\[\d+\]\s*\n([\s\S]*)$/);
+      if (match) columns[match[1]] = match[2].split(',').map(Number);
+    });
+    var t = columns.waveTime, hs = columns.waveHs, flag = columns.waveFlagPrimary;
+    if (!t || !hs || !flag || !t.length || t.length !== hs.length || t.length !== flag.length) {
+      throw new Error('Incomplete response');
+    }
+    return { t: t, hs: hs, flag: flag };
+  }
+
+  // Converts to feet. Rejected readings become nulls, and a null is added across
+  // any hole in the record, so the line breaks instead of bridging missing data.
+  function toSeries(raw) {
+    var times = [], feet = [];
+    raw.t.forEach(function (t, i) {
+      var previous = times[times.length - 1];
+      if (previous !== undefined && t - previous > READING_GAP_SECONDS) {
+        times.push(previous + 1800);
+        feet.push(null);
+      }
+      var good = raw.flag[i] === 1 && raw.hs[i] >= 0 && isFinite(raw.hs[i]);
+      times.push(t);
+      feet.push(good ? raw.hs[i] * FEET_PER_METER : null);
+    });
+    return { times: times, feet: feet };
+  }
+
+  function latestIndex() {
+    for (var i = state.feet.length - 1; i >= 0; i--) {
+      if (state.feet[i] !== null) return i;
+    }
+    return -1;
+  }
+
+  function visibleData() {
+    var cutoff = Date.now() / 1000 - state.hours * 3600;
+    var start = 0;
+    while (start < state.times.length && state.times[start] < cutoff) start++;
+    return [state.times.slice(start), state.feet.slice(start)];
+  }
+
+  function hasReadings(series) {
+    return series.some(function (v) { return v !== null; });
+  }
+
+  function formatFeet(v) { return v.toFixed(1); }
+
+  // ---- Latest reading -----------------------------------------------------
+
+  function ago(seconds) {
+    var minutes = Math.round(seconds / 60);
+    if (minutes < 1) return 'just now';
+    if (minutes < 60) return minutes + ' min ago';
+    var hours = Math.round(minutes / 60);
+    if (hours < 48) return hours + (hours === 1 ? ' hour ago' : ' hours ago');
+    return Math.round(hours / 24) + ' days ago';
+  }
+
+  function renderNow() {
+    var i = latestIndex();
+    if (i < 0) return;
+    var t = state.times[i];
+    el.value.textContent = formatFeet(state.feet[i]) + ' ';
+    var unit = document.createElement('small');
+    unit.textContent = 'ft';
+    el.value.appendChild(unit);
+    el.when.textContent = 'Measured ' + ago(Date.now() / 1000 - t) + ' · ' + whenFormat.format(new Date(t * 1000));
+    renderTakes(state.feet[i]);
+  }
+
+  function renderTakes(feet) {
+    var take = TAKES.find(function (entry) { return feet < entry.underFeet; }) || {};
+    el['take-jon'].textContent = take.jon || NO_TAKE;
+    el['take-kat'].textContent = take.kat || NO_TAKE;
+  }
+
+  function setStatus(message, withRetry) {
+    el.status.textContent = message;
+    if (withRetry) {
+      var retry = document.createElement('button');
+      retry.type = 'button';
+      retry.textContent = 'Try again';
+      retry.addEventListener('click', refresh);
+      el.status.appendChild(retry);
+    }
+  }
+
+  function staleMessage() {
+    var i = latestIndex();
+    if (i >= 0 && Date.now() / 1000 - state.times[i] > STALE_SECONDS) {
+      return 'The buoy has not reported recently, so this reading may be out of date.';
+    }
+    return '';
+  }
+
+  // ---- Chart --------------------------------------------------------------
+
+  function cssVar(name) {
+    return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+  }
+
+  function updateTip(u) {
+    var i = u.cursor.idx;
+    var v = i === null || i === undefined ? null : u.data[1][i];
+    if (v === null || v === undefined || u.cursor.left < 0) {
+      el.tip.hidden = true;
+      return;
+    }
+    el['tip-value'].textContent = formatFeet(v) + ' ft';
+    el['tip-time'].textContent = tipFormat.format(new Date(u.data[0][i] * 1000));
+    el.tip.hidden = false;
+
+    var box = el.chart.getBoundingClientRect();
+    var over = u.over.getBoundingClientRect();
+    var x = over.left - box.left + u.valToPos(u.data[0][i], 'x');
+    var left = x + 12;
+    if (left + el.tip.offsetWidth > box.width) left = x - el.tip.offsetWidth - 12;
+    el.tip.style.left = Math.max(0, left) + 'px';
+  }
+
+  function createChart(data) {
+    if (state.chart) state.chart.destroy();
+    var font = '12px ' + cssVar('--font');
+    var axis = {
+      stroke: cssVar('--ink-2'),
+      font: font,
+      grid: { stroke: cssVar('--grid'), width: 1 },
+      ticks: { show: false }
+    };
+    state.chart = new uPlot({
+      width: el.chart.clientWidth,
+      height: el.chart.clientHeight,
+      tzDate: function (ts) { return uPlot.tzDate(new Date(ts * 1000), TIME_ZONE); },
+      legend: { show: false },
+      padding: [8, 8, 0, 0],
+      cursor: {
+        y: false,
+        drag: { x: false, y: false, setScale: false },
+        points: { size: 8, width: 2, stroke: cssVar('--surface'), fill: cssVar('--line') }
+      },
+      scales: {
+        x: { time: true },
+        y: {
+          range: function (u, min, max) {
+            return [0, max === null || max === undefined ? 4 : Math.max(2, Math.ceil(max * 1.05))];
+          }
+        }
+      },
+      axes: [
+        Object.assign({}, axis, { space: 72 }),
+        Object.assign({}, axis, {
+          size: 48,
+          incrs: [0.5, 1, 2, 5, 10, 20],
+          values: function (u, splits) { return splits.map(function (v) { return v + ' ft'; }); }
+        })
+      ],
+      series: [
+        {},
+        { label: 'Wave height', stroke: cssVar('--line'), width: 2, points: { show: false } }
+      ],
+      hooks: { setCursor: [updateTip] }
+    }, data, el.chart);
+
+    // uPlot only follows the mouse, so horizontal finger drags need wiring up.
+    var over = state.chart.over;
+    function followTouch(e) {
+      if (e.pointerType !== 'touch') return;
+      var rect = over.getBoundingClientRect();
+      state.chart.setCursor({ left: e.clientX - rect.left, top: e.clientY - rect.top });
+    }
+    over.addEventListener('pointerdown', followTouch);
+    over.addEventListener('pointermove', followTouch);
+  }
+
+  function renderChart() {
+    var data = visibleData();
+    var some = hasReadings(data[1]);
+    el.note.textContent = some ? '' : 'No readings in this time range.';
+    el.tip.hidden = true;
+
+    if (some) {
+      var values = data[1].filter(function (v) { return v !== null; });
+      el.chart.setAttribute('aria-label',
+        'Line chart of wave height, ' + rangeLabel() + ': low ' + formatFeet(Math.min.apply(null, values)) +
+        ' ft, high ' + formatFeet(Math.max.apply(null, values)) + ' ft. Exact values are in the data table.');
+    } else {
+      el.chart.setAttribute('aria-label', 'No wave height readings in this time range.');
+    }
+
+    if (!window.uPlot) {
+      el.note.textContent = 'The chart could not load. Readings are in the data table below.';
+      return;
+    }
+    if (state.chart) state.chart.setData(data);
+    else createChart(data);
+  }
+
+  function rangeLabel() {
+    return state.hours <= 24 ? 'last 24 hours' : 'last ' + state.hours / 24 + ' days';
+  }
+
+  // ---- Data table ---------------------------------------------------------
+
+  function renderTable() {
+    if (!el.details.open) return;
+    var data = visibleData();
+    var fragment = document.createDocumentFragment();
+    for (var i = data[0].length - 1; i >= 0; i--) {
+      if (data[1][i] === null) continue;
+      var row = document.createElement('tr');
+      var time = document.createElement('td');
+      var height = document.createElement('td');
+      time.textContent = tipFormat.format(new Date(data[0][i] * 1000));
+      height.textContent = formatFeet(data[1][i]);
+      row.appendChild(time);
+      row.appendChild(height);
+      fragment.appendChild(row);
+    }
+    el.rows.replaceChildren(fragment);
+  }
+
+  // ---- Loading ------------------------------------------------------------
+
+  function refresh() {
+    if (state.fetching) return;
+    state.fetching = true;
+    var controller = new AbortController();
+    var timeout = setTimeout(function () { controller.abort(); }, FETCH_TIMEOUT_MS);
+
+    fetch(DATA_URL, { signal: controller.signal })
+      .then(function (response) {
+        if (!response.ok) throw new Error('HTTP ' + response.status);
+        return response.text();
+      })
+      .then(function (text) {
+        var series = toSeries(parseDap(text));
+        if (!hasReadings(series.feet)) throw new Error('No valid readings');
+        state.times = series.times;
+        state.feet = series.feet;
+        state.lastFetch = Date.now();
+        renderNow();
+        renderChart();
+        renderTable();
+        setStatus(staleMessage());
+      })
+      .catch(function (error) {
+        console.error('Surfcrank: could not load buoy data', error);
+        var hadData = state.times.length > 0;
+        setStatus(hadData
+          ? 'Could not refresh from CDIP. Showing the last readings loaded.'
+          : 'Could not load buoy data from CDIP.', true);
+        if (!hadData) {
+          el.when.textContent = 'No reading available';
+          el.note.textContent = 'No chart data to show.';
+          el.chart.setAttribute('aria-label', 'Wave height chart unavailable.');
+        }
+      })
+      .then(function () {
+        clearTimeout(timeout);
+        state.fetching = false;
+      });
+  }
+
+  // ---- Events -------------------------------------------------------------
+
+  el.ranges.addEventListener('click', function (event) {
+    var button = event.target.closest('button');
+    if (!button) return;
+    state.hours = Number(button.dataset.hours);
+    el.ranges.querySelectorAll('button').forEach(function (b) {
+      b.setAttribute('aria-pressed', String(b === button));
+    });
+    if (state.times.length) {
+      renderChart();
+      renderTable();
+    }
+  });
+
+  el.details.addEventListener('toggle', renderTable);
+
+  new ResizeObserver(function () {
+    if (state.chart) state.chart.setSize({ width: el.chart.clientWidth, height: el.chart.clientHeight });
+  }).observe(el.chart);
+
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function () {
+    if (state.chart) createChart(visibleData());
+  });
+
+  setInterval(function () {
+    if (document.hidden) return;
+    renderNow();
+    if (Date.now() - state.lastFetch >= REFRESH_MS) refresh();
+  }, 60 * 1000);
+
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) return;
+    renderNow();
+    if (Date.now() - state.lastFetch >= REFRESH_MS) refresh();
+  });
+
+  refresh();
+})();
+</script>
+</body>
+</html>
