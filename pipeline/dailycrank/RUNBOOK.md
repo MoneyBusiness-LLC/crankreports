@@ -6,9 +6,9 @@ These are the instructions Claude follows on each scheduled run. The scheduled t
 
 | Setting | Value |
 |---|---|
-| When it runs | 12:01am Pacific, at the start of the day it drafts |
-| Target day | Today, in Pacific time (the day that just started) |
-| Headline focus | Yesterday's news first (the day before the target day); the rest of the week as backup |
+| When it runs | 12:01am Pacific daily (extra one-off runs are fine, e.g. 10pm the night before) |
+| Target day | Before 6pm Pacific: today. From 6pm on: tomorrow. |
+| Headline focus | The latest full day of news first (the day before the target day, plus today's if running in the evening); the rest of the week as backup |
 | Trial | Draft days up to and including **2026-11-11**. After that, stop (see step 0). |
 | Repo | `moneybusiness-llc/crankreports`, base branch `main` |
 | Branch per day | `daily-crank/<YYYY-MM-DD>` |
@@ -27,7 +27,11 @@ These are the instructions Claude follows on each scheduled run. The scheduled t
 
 ### 0. Set up and decide whether to run
 1. Work in a checkout of the repo on an up-to-date `main` (`git fetch origin main && git checkout -B main origin/main`).
-2. `DAY=$(TZ=America/Los_Angeles date +%F)`. The run starts just after midnight Pacific, so this is the day that just began.
+2. Work out the target day in Pacific time:
+   ```sh
+   if [ "$(TZ=America/Los_Angeles date +%H)" -ge 18 ]; then DAY=$(TZ=America/Los_Angeles date -d tomorrow +%F); else DAY=$(TZ=America/Los_Angeles date +%F); fi
+   ```
+   The 12:01am run drafts the day that just began; an evening run drafts the next day.
 3. Stop without changing anything if:
    - `DAY` is after the trial end date above. Say the trial is over and the scheduled task should be turned off or extended.
    - `DAY` is already in `thedailycrank/questions.json`, because someone wrote it by hand.
