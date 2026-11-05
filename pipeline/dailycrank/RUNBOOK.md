@@ -6,7 +6,7 @@ These are the instructions Claude follows on each scheduled run. The scheduled t
 
 | Setting | Value |
 |---|---|
-| When it runs | 12:01am Pacific daily (extra one-off runs are fine, e.g. 10pm the night before) |
+| When it runs | 9:30pm Pacific daily, drafting the next day. Runs arrive in the "Daily Crank Runner" Claude Code session, which has this repo attached with push access. |
 | Target day | Before 6pm Pacific: today. From 6pm on: tomorrow. |
 | Headline focus | The latest full day of news first (the day before the target day, plus today's if running in the evening); the rest of the week as backup |
 | Trial | Draft days up to and including **2026-11-11**. After that, stop (see step 0). |
@@ -31,7 +31,7 @@ These are the instructions Claude follows on each scheduled run. The scheduled t
    ```sh
    if [ "$(TZ=America/Los_Angeles date +%H)" -ge 18 ]; then DAY=$(TZ=America/Los_Angeles date -d tomorrow +%F); else DAY=$(TZ=America/Los_Angeles date +%F); fi
    ```
-   The 12:01am run drafts the day that just began; an evening run drafts the next day.
+   The scheduled 9:30pm run drafts the next day; a run after midnight drafts the day that just began.
 3. Stop without changing anything if:
    - `DAY` is after the trial end date above. Say the trial is over and the scheduled task should be turned off or extended.
    - `DAY` is already in `thedailycrank/questions.json`, because someone wrote it by hand.

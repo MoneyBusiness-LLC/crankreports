@@ -1,14 +1,14 @@
 # Daily Crank question pipeline
 
-Just after midnight Pacific, that day's questions are drafted from the previous day's headlines and opened as a PR. Approving and merging the PR publishes the day; until then, players get the previous day again. There are two ways to run the drafting, and both use the same files here:
+At 9:30pm Pacific, the next day's questions are drafted from the latest headlines and opened as a PR. Approving and merging the PR publishes the day; until then, players get the previous day again. There are two ways to run the drafting, and both use the same files here:
 
 | | **Claude Code scheduled task** (current, trial through Nov 11) | **GitHub Action with an API key** (backup) |
 |---|---|---|
 | Instructions | `RUNBOOK.md` + `prompt.md` | `generate.py` + `prompt.md` |
-| When | 12:01am Pacific daily | By hand: Actions → *Daily Crank questions* → *Run workflow* |
+| When | 9:30pm Pacific daily, in the "Daily Crank Runner" session | By hand: Actions → *Daily Crank questions* → *Run workflow* |
 | Billed to | Your Claude plan's usage | `ANTHROPIC_API_KEY` (exact cost shown on each PR) |
 
-The scheduled task's prompt only says "follow `pipeline/dailycrank/RUNBOOK.md`", so the process lives in this repo and changes go through PRs. The schedule itself lives in Claude Code; to pause, extend or retime it, ask Claude in the session that set it up, or in any Claude Code session.
+The scheduled task's prompt only says "follow `pipeline/dailycrank/RUNBOOK.md`", so the process lives in this repo and changes go through PRs. The schedule itself lives in Claude Code. Each run is a new message in one long-lived session, **Daily Crank Runner**, which has this repo attached with push access; open that session on claude.ai/code to watch a run or see past ones. To pause, extend or retime the schedule, ask Claude in any Claude Code session.
 
 ```
 headlines ──► draft ──► fact-check ──► pick + validate ──► PR ──► you approve ──► live
