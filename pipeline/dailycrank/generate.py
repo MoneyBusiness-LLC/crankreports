@@ -1,6 +1,6 @@
 """Draft one Daily Crank day from the latest headlines.
 
-    python pipeline/dailycrank/generate.py                         # today (Pacific time)
+    python pipeline/dailycrank/generate.py                         # today Pacific time (tomorrow from 6pm on)
     python pipeline/dailycrank/generate.py --date 2026-11-05 --theme "Election results"
     python pipeline/dailycrank/generate.py --dry-run --out /tmp/dc  # don't touch questions.json
 
@@ -20,7 +20,7 @@ import json
 import os
 import re
 import sys
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 from pathlib import Path
 from typing import Literal, Optional
 from zoneinfo import ZoneInfo
@@ -331,7 +331,7 @@ def gh_output(**kv) -> None:
 
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--date", help="day to write, YYYY-MM-DD (default: today, Pacific time)")
+    ap.add_argument("--date", help="day to write, YYYY-MM-DD (default: today Pacific time, or tomorrow from 6pm on)")
     ap.add_argument("--theme", help="optional editor's theme, e.g. 'Election results' or 'Halloween'")
     ap.add_argument("--replace", action="store_true", help="overwrite the day if it already exists")
     ap.add_argument("--dry-run", action="store_true", help="don't modify questions.json")
@@ -340,7 +340,8 @@ def main() -> int:
     ap.add_argument("--out", type=Path, default=Path("dailycrank-out"), help="where to write pr_body.md and candidates.json")
     args = ap.parse_args()
 
-    day = args.date or datetime.now(PT).date().isoformat()
+    now = datetime.now(PT)
+    day = args.date or (now.date() + timedelta(days=1 if now.hour >= 18 else 0)).isoformat()
     date.fromisoformat(day)
     theme = (args.theme or "").strip() or None
     data = validate.load(args.file)
