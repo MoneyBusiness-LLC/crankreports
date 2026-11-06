@@ -1004,5 +1004,87 @@
         "Mirrors"
       ]
     }
+  },
+  "2026-11-06": {
+    "surface": [
+      {
+        "topic": "Sports",
+        "question": "LIV Golf takes its name from the Roman numeral for which number?",
+        "answer": "54",
+        "wrong": [
+          "44",
+          "46",
+          "56"
+        ]
+      },
+      {
+        "topic": "Sports",
+        "question": "Before 2026, the Knicks' last NBA title came in what year?",
+        "answer": "1973",
+        "wrong": [
+          "1969",
+          "1985",
+          "1994"
+        ]
+      },
+      {
+        "topic": "Tech",
+        "question": "Film-logging app Letterboxd was founded in which country?",
+        "answer": "New Zealand",
+        "wrong": [
+          "Australia",
+          "Canada",
+          "Ireland"
+        ]
+      },
+      {
+        "topic": "Geography",
+        "question": "Besides Bolivia, which South American country is landlocked?",
+        "answer": "Paraguay",
+        "wrong": [
+          "Uruguay",
+          "Ecuador",
+          "Guyana"
+        ]
+      },
+      {
+        "topic": "Music",
+        "question": "Amy Winehouse's album *Back to Black* came out in what year?",
+        "answer": "2006",
+        "wrong": [
+          "2003",
+          "2008",
+          "2010"
+        ]
+      }
+    ],
+    "midwater": [
+      {
+        "question": "How many Oscars did *The Lord of the Rings: The Return of the King* win?",
+        "answer": 11,
+        "unit": "Oscars",
+        "min": 0,
+        "max": 50
+      },
+      {
+        "question": "How tall is Blue Origin's New Glenn rocket, in feet?",
+        "answer": 322,
+        "unit": "feet",
+        "min": 0,
+        "max": 1500
+      },
+      {
+        "question": "How many sovereign countries are in South America?",
+        "answer": 12,
+        "unit": "countries",
+        "min": 0,
+        "max": 60
+      }
+    ],
+    "bottom": {
+      "clue": "Online magazine founded in 1995 that announced in November 2026 it's shutting down; also where you get your hair done",
+      "answer": "Salon",
+      "alsoAccept": []
+    }
   }
 }
