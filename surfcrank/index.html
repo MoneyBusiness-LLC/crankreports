@@ -8,6 +8,8 @@
 <meta name="color-scheme" content="light dark">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uplot@1.6.32/dist/uPlot.min.css"
   integrity="sha384-IfV0B7MIOYuO95kO9G5ySKPz/85zqFNOAs8iy4tkK5zd9izhJAB8b7lHrwYqqmYE" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css"
+  integrity="sha384-sHL9NAb7lN7rfvG5lfHpm643Xkcjzp4jFvuavGOndn6pjVqS6ny56CAt3nsEVT4H" crossorigin="anonymous">
 <style>
   :root {
     --surface: #fcfcfb;
@@ -17,6 +19,7 @@
     --rule: #d6d5cf;
     --wash: #f0efeb;
     --line: #2a78d6;
+    --section: #eb6834;
     --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   }
 
@@ -29,7 +32,11 @@
       --rule: #474743;
       --wash: #292928;
       --line: #3987e5;
+      --section: #d95926;
     }
+
+    /* OpenStreetMap only serves light tiles, so darken them to match the page. */
+    .leaflet-tile-pane { filter: invert(1) hue-rotate(180deg) brightness(0.95) contrast(0.9); }
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -143,6 +150,34 @@
   .take h2 { font-size: 16px; font-weight: 600; }
   .take p { margin-top: 2px; color: var(--ink-2); font-size: 15px; }
 
+  .area { margin-top: 32px; }
+  .area h2 { font-size: 16px; font-weight: 600; }
+  .area p { margin-top: 2px; color: var(--ink-2); font-size: 15px; }
+  #map {
+    position: relative;
+    height: 360px;
+    margin-top: 12px;
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    background: var(--wash);
+    font: 13px var(--font);
+  }
+  #map .map-label {
+    padding: 2px 6px;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    background: var(--surface);
+    box-shadow: none;
+    color: var(--ink);
+    font: 500 12px var(--font);
+  }
+  #map .map-label::before { display: none; }
+  #map .leaflet-control-attribution { background: var(--surface); color: var(--ink-2); }
+  #map .leaflet-control-attribution a { color: inherit; }
+  #map .leaflet-bar a { background: var(--surface); color: var(--ink); border-color: var(--rule); }
+  #map .leaflet-bar a.leaflet-disabled { color: var(--ink-2); background: var(--wash); }
+  .map-note { display: flex; height: 100%; align-items: center; justify-content: center; padding: 16px; color: var(--ink-2); font-size: 14px; text-align: center; }
+
   details { margin-top: 24px; font-size: 14px; }
   summary { cursor: pointer; color: var(--ink-2); padding: 4px 0; }
   .table-wrap { max-height: 320px; margin-top: 8px; overflow-y: auto; border-top: 1px solid var(--grid); }
@@ -202,6 +237,12 @@
     </div>
   </details>
 
+  <section class="area">
+    <h2>Where this applies</h2>
+    <p>Roughly Point La Jolla to Torrey Pines. Submarine canyons offshore can change wave height sharply over short distances, so a break on this stretch can run well above or below the buoy.</p>
+    <div id="map" role="region" aria-label="Map of the Scripps Nearshore buoy, about a kilometer off the coast, and the stretch of coast from Point La Jolla north to Torrey Pines"></div>
+  </section>
+
   <footer>
     <p>Significant wave height is the average of the largest third of waves. It's measured at the buoy, in about 135 ft of water, so it won't match the size of the waves breaking at the beach. Times are Pacific.</p>
     <p>Data from the <a href="https://cdip.ucsd.edu/m/products/?stn=201p1">Coastal Data Information Program (CDIP)</a>, Scripps Institution of Oceanography, station 201p1.</p>
@@ -211,6 +252,8 @@
 
 <script src="https://cdn.jsdelivr.net/npm/uplot@1.6.32/dist/uPlot.iife.min.js"
   integrity="sha384-Gx3t0zdBAuQOuvvmaLZj7HKEiSgWTAs+VdtNY7wt19QDPTDQjFIwAuXDj0zeN00c" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"
+  integrity="sha384-cxOPjt7s7Iz04uaHJceBmS+qpjv2JkIHNVcuOrM+YHwZOmJGBXI00mdUXEq65HTH" crossorigin="anonymous"></script>
 <script>
 (function () {
   'use strict';
@@ -229,6 +272,11 @@
   //   { underFeet: Infinity, jon: 'Firing.', kat: 'See you out there.' }
   var TAKES = [];
   var NO_TAKE = 'No take yet.';
+
+  // CDIP's deployment position for station 201p1.
+  var BUOY = [32.86785, -117.26667];
+  // OpenStreetMap coastline from Torrey Pines south to Point La Jolla, simplified.
+  var COAST_SECTION = [[32.93,-117.26037],[32.92452,-117.25957],[32.91908,-117.25929],[32.91465,-117.25863],[32.914,-117.25873],[32.91362,-117.25828],[32.91087,-117.25692],[32.90848,-117.25615],[32.90678,-117.25594],[32.90624,-117.25534],[32.90575,-117.25512],[32.90067,-117.25424],[32.89551,-117.2536],[32.89288,-117.25363],[32.89211,-117.25341],[32.8839,-117.25305],[32.88108,-117.25176],[32.87597,-117.25165],[32.872,-117.25257],[32.8712,-117.25339],[32.87112,-117.25325],[32.8707,-117.25325],[32.86808,-117.25391],[32.86676,-117.25461],[32.86288,-117.25545],[32.86003,-117.25641],[32.85615,-117.25857],[32.85323,-117.26065],[32.85166,-117.26221],[32.85095,-117.26326],[32.85069,-117.26327],[32.85053,-117.26367],[32.84986,-117.26379],[32.84914,-117.26438],[32.84859,-117.26549],[32.84905,-117.26655],[32.84859,-117.26755],[32.84907,-117.2688],[32.84939,-117.26913],[32.84939,-117.26939],[32.84967,-117.26979],[32.85015,-117.27005],[32.85016,-117.27043],[32.8496,-117.2703],[32.84951,-117.27042],[32.8504,-117.27126],[32.85049,-117.27161],[32.85023,-117.27195],[32.85041,-117.27225],[32.85025,-117.27261],[32.85054,-117.27301],[32.85078,-117.27294]];
 
   var el = {};
   ['value', 'when', 'status', 'ranges', 'chart', 'tip', 'tip-value', 'tip-time', 'note', 'details', 'rows', 'take-jon', 'take-kat']
@@ -453,6 +501,55 @@
     return state.hours <= 24 ? 'last 24 hours' : 'last ' + state.hours / 24 + ' days';
   }
 
+  // ---- Map ----------------------------------------------------------------
+
+  var mapMarks = null;
+
+  function styleMap() {
+    if (!mapMarks) return;
+    var surface = cssVar('--surface'), section = cssVar('--section');
+    mapMarks.section.setStyle({ color: section });
+    mapMarks.ends.forEach(function (end) { end.setStyle({ color: surface, fillColor: section }); });
+    mapMarks.buoy.setStyle({ color: surface, fillColor: cssVar('--line') });
+  }
+
+  function endMark(point, label) {
+    return L.circleMarker(point, { radius: 5, weight: 2, fillOpacity: 1 })
+      .bindTooltip(label, { permanent: true, direction: 'left', offset: [-6, 0], className: 'map-label' });
+  }
+
+  function initMap() {
+    var container = document.getElementById('map');
+    if (!window.L) {
+      var note = document.createElement('div');
+      note.className = 'map-note';
+      note.textContent = 'The map could not load.';
+      container.appendChild(note);
+      return;
+    }
+    // Leave page scrolling alone: no wheel zoom, and no one-finger panning on phones.
+    var map = L.map(container, { scrollWheelZoom: false, dragging: !L.Browser.mobile });
+    map.attributionControl.setPrefix(false);
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 17,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    var section = L.polyline(COAST_SECTION, { weight: 4, opacity: 1 }).addTo(map);
+    var ends = [
+      endMark(COAST_SECTION[0], 'Torrey Pines').addTo(map),
+      endMark(COAST_SECTION[COAST_SECTION.length - 1], 'Point La Jolla').addTo(map)
+    ];
+    var buoy = L.circleMarker(BUOY, { radius: 7, weight: 2, fillOpacity: 1 })
+      .bindTooltip('Buoy', { permanent: true, direction: 'left', offset: [-8, 0], className: 'map-label' })
+      .addTo(map);
+
+    mapMarks = { section: section, ends: ends, buoy: buoy };
+    styleMap();
+    // Extra room on the left keeps the ocean-side labels inside the frame.
+    map.fitBounds(section.getBounds().extend(BUOY), { paddingTopLeft: [110, 32], paddingBottomRight: [32, 32] });
+  }
+
   // ---- Data table ---------------------------------------------------------
 
   function renderTable() {
@@ -538,6 +635,7 @@
 
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function () {
     if (state.chart) createChart(visibleData());
+    styleMap();
   });
 
   setInterval(function () {
@@ -552,6 +650,7 @@
     if (Date.now() - state.lastFetch >= REFRESH_MS) refresh();
   });
 
+  initMap();
   refresh();
 })();
 </script>
