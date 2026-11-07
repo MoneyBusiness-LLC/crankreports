@@ -1086,5 +1086,88 @@
       "answer": "Salon",
       "alsoAccept": []
     }
+  },
+  "2026-11-07": {
+    "surface": [
+      {
+        "topic": "Sports",
+        "question": "Kristaps Porziņģis is from which country?",
+        "answer": "Latvia",
+        "wrong": [
+          "Lithuania",
+          "Estonia",
+          "Slovenia"
+        ]
+      },
+      {
+        "topic": "Music",
+        "question": "The Weeknd's real first name is?",
+        "answer": "Abel",
+        "wrong": [
+          "Aubrey",
+          "Austin",
+          "Jacques"
+        ]
+      },
+      {
+        "topic": "History",
+        "question": "Guy Fawkes's Gunpowder Plot was foiled in what year?",
+        "answer": "1605",
+        "wrong": [
+          "1588",
+          "1666",
+          "1715"
+        ]
+      },
+      {
+        "topic": "Culture",
+        "question": "According to Sanrio, Hello Kitty lives just outside which city?",
+        "answer": "London",
+        "wrong": [
+          "Tokyo",
+          "Paris",
+          "Osaka"
+        ]
+      },
+      {
+        "topic": "Space",
+        "question": "Voyager 1 launched in what year?",
+        "answer": "1977",
+        "wrong": [
+          "1969",
+          "1983",
+          "1990"
+        ]
+      }
+    ],
+    "midwater": [
+      {
+        "question": "How many official Eon Productions James Bond films are there?",
+        "answer": 25,
+        "unit": "films",
+        "min": 0,
+        "max": 120
+      },
+      {
+        "question": "A supermoon can look about what percent bigger than a micromoon, per NASA?",
+        "answer": 14,
+        "unit": "percent",
+        "min": 0,
+        "max": 100
+      },
+      {
+        "question": "On average, about how many minutes does sunlight take to reach Earth?",
+        "answer": 8.3,
+        "unit": "minutes",
+        "min": 0,
+        "max": 60,
+        "step": 0.1
+      }
+    ],
+    "bottom": {
+      "clue": "NASA observatory that fell back to Earth in November 2026 after nearly 22 years; also means speedy",
+      "answer": "Swift",
+      "alsoAccept": []
+    }
   }
 }
