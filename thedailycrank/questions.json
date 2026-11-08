@@ -1169,5 +1169,87 @@
       "answer": "Swift",
       "alsoAccept": []
     }
+  },
+  "2026-11-08": {
+    "surface": [
+      {
+        "topic": "Sports",
+        "question": "Notre Dame's \"Touchdown Jesus\" mural is on the side of which campus building?",
+        "answer": "Library",
+        "wrong": [
+          "Chapel",
+          "Stadium",
+          "Dorm"
+        ]
+      },
+      {
+        "topic": "Movies",
+        "question": "Emma Stone won her second Best Actress Oscar for which film?",
+        "answer": "*Poor Things*",
+        "wrong": [
+          "*The Favourite*",
+          "*Cruella*",
+          "*Birdman*"
+        ]
+      },
+      {
+        "topic": "Music",
+        "question": "U2's The Edge was born with what first name?",
+        "answer": "David",
+        "wrong": [
+          "Paul",
+          "Adam",
+          "Larry"
+        ]
+      },
+      {
+        "topic": "Science",
+        "question": "Astronomer Vera Rubin found key evidence for what?",
+        "answer": "Dark matter",
+        "wrong": [
+          "Black holes",
+          "Exoplanets",
+          "Dark energy"
+        ]
+      },
+      {
+        "topic": "Music",
+        "question": "Alanis Morissette's 1995 breakthrough album was?",
+        "answer": "*Jagged Little Pill*",
+        "wrong": [
+          "*Tragic Kingdom*",
+          "*Little Earthquakes*",
+          "*Tidal*"
+        ]
+      }
+    ],
+    "midwater": [
+      {
+        "question": "How many regular-season goals did Lionel Messi score to win the 2026 MLS Golden Boot?",
+        "answer": 26,
+        "unit": "goals",
+        "min": 0,
+        "max": 120
+      },
+      {
+        "question": "How many Mr. Olympia titles did Arnold Schwarzenegger win?",
+        "answer": 7,
+        "unit": "titles",
+        "min": 0,
+        "max": 30
+      },
+      {
+        "question": "Humans exhale about how many billion metric tons of CO2 a year just by staying alive?",
+        "answer": 2,
+        "unit": "billion metric tons",
+        "min": 0,
+        "max": 20
+      }
+    ],
+    "bottom": {
+      "clue": "Las Vegas venue hosting Metallica's 2026–27 residency; also a ball shape",
+      "answer": "Sphere",
+      "alsoAccept": []
+    }
   }
 }
