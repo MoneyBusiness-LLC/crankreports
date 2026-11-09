@@ -1251,5 +1251,87 @@
       "answer": "Sphere",
       "alsoAccept": []
     }
+  },
+  "2026-11-09": {
+    "surface": [
+      {
+        "topic": "Sports",
+        "question": "Blades Brown, 19, won the World Wide Technology Championship in which country?",
+        "answer": "Mexico",
+        "wrong": [
+          "United States",
+          "Canada",
+          "Bahamas"
+        ]
+      },
+      {
+        "topic": "Culture",
+        "question": "Diwali is known as the festival of what?",
+        "answer": "Lights",
+        "wrong": [
+          "Colors",
+          "Harvest",
+          "Kites"
+        ]
+      },
+      {
+        "topic": "Movies",
+        "question": "In *Meet the Parents*, Robert De Niro's Jack Byrnes is ex-what?",
+        "answer": "CIA",
+        "wrong": [
+          "FBI",
+          "NSA",
+          "Secret Service"
+        ]
+      },
+      {
+        "topic": "Games",
+        "question": "*Fortnite* is made by which company?",
+        "answer": "Epic Games",
+        "wrong": [
+          "Valve",
+          "Activision",
+          "Riot Games"
+        ]
+      },
+      {
+        "topic": "Sports",
+        "question": "Travis Kelce plays which position for the Chiefs?",
+        "answer": "Tight end",
+        "wrong": [
+          "Wide receiver",
+          "Quarterback",
+          "Running back"
+        ]
+      }
+    ],
+    "midwater": [
+      {
+        "question": "How many weeks did *Thriller* spend at No. 1 on the Billboard 200 in 1983–84?",
+        "answer": 37,
+        "unit": "weeks",
+        "min": 0,
+        "max": 160
+      },
+      {
+        "question": "How long is the SS United States ocean liner, in feet?",
+        "answer": 990,
+        "unit": "feet",
+        "min": 0,
+        "max": 5000
+      },
+      {
+        "question": "How many people have walked on the Moon?",
+        "answer": 12,
+        "unit": "people",
+        "min": 0,
+        "max": 60
+      }
+    ],
+    "bottom": {
+      "clue": "Charles Tillman's 'Peanut' move to strip the football; also a fruity party drink",
+      "answer": "Punch",
+      "alsoAccept": []
+    }
   }
 }
