@@ -1333,5 +1333,87 @@
       "answer": "Punch",
       "alsoAccept": []
     }
+  },
+  "2026-11-10": {
+    "surface": [
+      {
+        "topic": "Sports",
+        "question": "Kevin McGonigle won the 2026 AL Rookie of the Year for which team?",
+        "answer": "Detroit Tigers",
+        "wrong": [
+          "Cleveland Guardians",
+          "Boston Red Sox",
+          "Kansas City Royals"
+        ]
+      },
+      {
+        "topic": "Movies",
+        "question": "*Godzilla Minus One* won an Oscar in which category?",
+        "answer": "Best Visual Effects",
+        "wrong": [
+          "Best Picture",
+          "Best Original Score",
+          "Best International Feature"
+        ]
+      },
+      {
+        "topic": "Culture",
+        "question": "In the Ramayana, Prince Rama's wife is?",
+        "answer": "Sita",
+        "wrong": [
+          "Draupadi",
+          "Radha",
+          "Parvati"
+        ]
+      },
+      {
+        "topic": "Books",
+        "question": "Isaac Asimov's *I, Robot* features the Three Laws of what?",
+        "answer": "Robotics",
+        "wrong": [
+          "Motion",
+          "Thermodynamics",
+          "Magic"
+        ]
+      },
+      {
+        "topic": "Sports",
+        "question": "Cooper Flagg played his one college season at which school?",
+        "answer": "Duke",
+        "wrong": [
+          "North Carolina",
+          "Kentucky",
+          "Kansas"
+        ]
+      }
+    ],
+    "midwater": [
+      {
+        "question": "The College Football Playoff will expand to how many teams starting in 2027?",
+        "answer": 24,
+        "unit": "teams",
+        "min": 0,
+        "max": 120
+      },
+      {
+        "question": "The Large Hadron Collider's ring is about how many kilometers around?",
+        "answer": 27,
+        "unit": "kilometers",
+        "min": 0,
+        "max": 150
+      },
+      {
+        "question": "How many Olympic gold medals has judoka Teddy Riner won?",
+        "answer": 5,
+        "unit": "gold medals",
+        "min": 0,
+        "max": 25
+      }
+    ],
+    "bottom": {
+      "clue": "Dickens's Christmas ___, retold in Johnny Depp's *Ebenezer*; also a holiday song",
+      "answer": "Carol",
+      "alsoAccept": []
+    }
   }
 }
