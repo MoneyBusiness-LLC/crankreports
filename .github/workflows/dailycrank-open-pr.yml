@@ -1,0 +1,52 @@
+name: Daily Crank open PR
+
+# When the nightly run pushes a daily-crank/<day> branch, open its PR as the
+# Crank Bot GitHub App, so either editor can approve it (GitHub never lets a
+# PR's author approve it). The PR title and description come from the
+# branch's latest commit: its first line and its body.
+#
+# Needs the CRANK_BOT_APP_ID repo variable and CRANK_BOT_PRIVATE_KEY repo
+# secret. Setup steps are in pipeline/dailycrank/README.md.
+on:
+  push:
+    branches:
+      - "daily-crank/**"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: dailycrank-open-pr-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  open-pr:
+    if: github.event.deleted == false
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Act as Crank Bot
+        id: bot
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ vars.CRANK_BOT_APP_ID }}
+          private-key: ${{ secrets.CRANK_BOT_PRIVATE_KEY }}
+
+      - name: Open the PR unless one is already open
+        env:
+          GH_TOKEN: ${{ steps.bot.outputs.token }}
+          BRANCH: ${{ github.ref_name }}
+        run: |
+          if [ "$(gh pr list --head "$BRANCH" --state open --json number --jq length)" != "0" ]; then
+            echo "A PR for $BRANCH is already open; leaving it alone."
+            exit 0
+          fi
+          git log -1 --format=%s > "$RUNNER_TEMP/title.txt"
+          git log -1 --format=%b > "$RUNNER_TEMP/body.md"
+          if [ ! -s "$RUNNER_TEMP/body.md" ]; then
+            echo "Pushed by the Daily Crank pipeline. (The commit had no description.)" > "$RUNNER_TEMP/body.md"
+          fi
+          gh pr create --base main --head "$BRANCH" \
+            --title "$(cat "$RUNNER_TEMP/title.txt")" \
+            --body-file "$RUNNER_TEMP/body.md"
