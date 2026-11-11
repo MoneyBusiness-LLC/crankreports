@@ -65,11 +65,11 @@ Warnings show up in the PR for a human to judge:
 2. **Save the credentials.** On the app's page, note the **App ID**, then under *Private keys* click **Generate a private key** to download a `.pem` file.
 3. **Install it.** On the app's page: Install App → MoneyBusiness-LLC → *Only select repositories* → `crankreports`.
 4. **Give the workflow the credentials.** In this repo: Settings → Secrets and variables → Actions.
-   - *Variables* tab: add `CRANK_BOT_APP_ID` = the App ID.
-   - *Secrets* tab: add `CRANK_BOT_PRIVATE_KEY` = the whole contents of the `.pem` file. Then delete the downloaded file.
+   - `GOD_CRANK_APP_ID` = the App ID, on either the *Variables* or the *Secrets* tab.
+   - `GOD_CRANK_SECRET` = the whole contents of the `.pem` file, on the *Secrets* tab. Then delete the downloaded file.
 5. **Check the ruleset on `main`.** If *Require approval of the most recent reviewable push* is on, whoever pushed the branch can't approve. The nightly run pushes as Bobby, so with that setting on, only Ben could approve. It's off by default.
 
-If the app isn't set up, the run still pushes its branch but no PR appears; the run's report says so, and you can open the PR from the branch by hand.
+If the app isn't set up, the run still pushes its branch but no PR appears; the run's report says so. Once it's fixed, open the PR with Actions → *Daily Crank open PR* → *Run workflow*, giving the branch name (e.g. `daily-crank/2026-11-11`). Re-running the failed run won't pick up a fix to the workflow file, because a re-run uses the workflow as it was in that commit.
 
 **GitHub Action (only if you use the backup):**
 1. Add an `ANTHROPIC_API_KEY` repository secret (Settings → Secrets and variables → Actions).

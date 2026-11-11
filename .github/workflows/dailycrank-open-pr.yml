@@ -5,38 +5,58 @@ name: Daily Crank open PR
 # PR's author approve it). The PR title and description come from the
 # branch's latest commit: its first line and its body.
 #
-# Needs the CRANK_BOT_APP_ID repo variable and CRANK_BOT_PRIVATE_KEY repo
-# secret. Setup steps are in pipeline/dailycrank/README.md.
+# Needs the app's ID in GOD_CRANK_APP_ID (a repo variable or secret) and its
+# private key in the GOD_CRANK_SECRET repo secret. Setup steps are in
+# pipeline/dailycrank/README.md.
+#
+# To open a PR for a branch that was already pushed (say, if this workflow
+# failed), use Actions -> Daily Crank open PR -> Run workflow and give the
+# branch name.
 on:
   push:
     branches:
       - "daily-crank/**"
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: "Branch to open a PR for, e.g. daily-crank/2026-11-11"
+        required: true
 
 permissions:
   contents: read
 
 concurrency:
-  group: dailycrank-open-pr-${{ github.ref }}
+  group: dailycrank-open-pr-${{ inputs.branch || github.ref_name }}
   cancel-in-progress: false
 
 jobs:
   open-pr:
-    if: github.event.deleted == false
+    if: github.event_name == 'workflow_dispatch' || !github.event.deleted
     runs-on: ubuntu-latest
+    env:
+      BRANCH: ${{ inputs.branch || github.ref_name }}
     steps:
+      - name: Check the branch name
+        run: |
+          case "$BRANCH" in
+            daily-crank/*) ;;
+            *) echo "Only daily-crank/<day> branches get a PR here, not '$BRANCH'."; exit 1 ;;
+          esac
+
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.BRANCH }}
 
       - name: Act as Crank Bot
         id: bot
         uses: actions/create-github-app-token@v1
         with:
-          app-id: ${{ vars.CRANK_BOT_APP_ID }}
-          private-key: ${{ secrets.CRANK_BOT_PRIVATE_KEY }}
+          app-id: ${{ vars.GOD_CRANK_APP_ID || secrets.GOD_CRANK_APP_ID }}
+          private-key: ${{ secrets.GOD_CRANK_SECRET }}
 
       - name: Open the PR unless one is already open
         env:
           GH_TOKEN: ${{ steps.bot.outputs.token }}
-          BRANCH: ${{ github.ref_name }}
         run: |
           if [ "$(gh pr list --head "$BRANCH" --state open --json number --jq length)" != "0" ]; then
             echo "A PR for $BRANCH is already open; leaving it alone."
