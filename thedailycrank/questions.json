@@ -1415,5 +1415,87 @@
       "answer": "Carol",
       "alsoAccept": []
     }
+  },
+  "2026-11-11": {
+    "surface": [
+      {
+        "topic": "History",
+        "question": "Veterans Day was originally called what?",
+        "answer": "Armistice Day",
+        "wrong": [
+          "Memorial Day",
+          "Decoration Day",
+          "Flag Day"
+        ]
+      },
+      {
+        "topic": "Sports",
+        "question": "Fernando Mendoza won the Heisman Trophy playing for which school?",
+        "answer": "Indiana",
+        "wrong": [
+          "Ohio State",
+          "Oregon",
+          "Miami"
+        ]
+      },
+      {
+        "topic": "Books",
+        "question": "*Sunrise on the Reaping* follows a young version of which *Hunger Games* character?",
+        "answer": "Haymitch",
+        "wrong": [
+          "Snow",
+          "Finnick",
+          "Peeta"
+        ]
+      },
+      {
+        "topic": "Movies",
+        "question": "Charlize Theron was born in which country?",
+        "answer": "South Africa",
+        "wrong": [
+          "Australia",
+          "Namibia",
+          "New Zealand"
+        ]
+      },
+      {
+        "topic": "Sports",
+        "question": "Georgia's live bulldog mascot is named what?",
+        "answer": "Uga",
+        "wrong": [
+          "Bevo",
+          "Ralphie",
+          "Smokey"
+        ]
+      }
+    ],
+    "midwater": [
+      {
+        "question": "Arlington National Cemetery covers about how many acres?",
+        "answer": 639,
+        "unit": "acres",
+        "min": 0,
+        "max": 3000
+      },
+      {
+        "question": "A giant prehistoric rodent newly identified from fossils in Thailand weighed about how many pounds?",
+        "answer": 66,
+        "unit": "pounds",
+        "min": 0,
+        "max": 300
+      },
+      {
+        "question": "How many weeks did Brandy and Monica's \"The Boy Is Mine\" spend at No. 1 on the Hot 100?",
+        "answer": 13,
+        "unit": "weeks",
+        "min": 0,
+        "max": 60
+      }
+    ],
+    "bottom": {
+      "clue": "Color in the nickname of Weezer's 1994 debut album; also feeling sad",
+      "answer": "Blue",
+      "alsoAccept": []
+    }
   }
 }
