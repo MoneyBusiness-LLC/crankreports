@@ -9,7 +9,7 @@ These are the instructions Claude follows on each scheduled run. The scheduled t
 | When it runs | 9:30pm Pacific daily, drafting the next day. Runs arrive in the "Daily Crank Runner" Claude Code session, which has this repo attached with push access. |
 | Target day | Before 6pm Pacific: today. From 6pm on: tomorrow. |
 | Headline focus | The latest full day of news first (the day before the target day, plus today's if running in the evening); the rest of the week as backup |
-| Trial | Draft days up to and including **2026-11-11**. After that, stop (see step 0). |
+| Trial | Draft days up to and including **2026-11-18**. After that, stop (see step 0). |
 | Repo | `moneybusiness-llc/crankreports`, base branch `main` |
 | Branch per day | `daily-crank/<YYYY-MM-DD>` |
 | Candidates to draft | 10 surface, 6 mid-water, 3 bottom |
