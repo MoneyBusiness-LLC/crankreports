@@ -8,7 +8,7 @@ At 9:30pm Pacific, the next day's questions are drafted from the latest headline
 | When | 9:30pm Pacific daily, in the "Daily Crank Runner" session | By hand: Actions → *Daily Crank questions* → *Run workflow* |
 | Billed to | Your Claude plan's usage | `ANTHROPIC_API_KEY` (exact cost shown on each PR) |
 
-The scheduled task's prompt only says "follow `pipeline/dailycrank/RUNBOOK.md`", so the process lives in this repo and changes go through PRs. The schedule itself lives in Claude Code. Each run is a new message in one long-lived session, **Daily Crank Runner**, which has this repo attached with push access; open that session on claude.ai/code to watch a run or see past ones. To pause, extend or retime the schedule, ask Claude in any Claude Code session.
+The scheduled task's prompt only says "follow `pipeline/dailycrank/RUNBOOK.md`", so the process lives in this repo and changes go through PRs. The schedule itself lives in Claude Code. Each run is a new message in one long-lived session, **Daily Crank Runner**, which has this repo attached with push access; open that session on claude.ai/code to watch a run or see past ones. The run pushes a `daily-crank/<day>` branch, and the *Daily Crank open PR* workflow opens the PR as **Crank Bot**, so either editor can approve it. To pause, extend or retime the schedule, ask Claude in any Claude Code session.
 
 ```
 headlines ──► draft ──► fact-check ──► pick + validate ──► PR ──► you approve ──► live
@@ -24,7 +24,7 @@ headlines ──► draft ──► fact-check ──► pick + validate ──�
 
 ## Day to day
 
-- **Review:** read the PR, swap anything you don't like by editing `questions.json` on the PR branch (alternates are in the description), then approve and merge.
+- **Review:** read the PR, swap anything you don't like by editing `questions.json` on the PR branch (alternates are in the description), then approve and merge. Crank Bot opens the PR, so you or Ben can approve it.
 - **Breaking news or a theme:** ask Claude for a redraft ("redo Thursday's questions around the election results"), or with an API key, go to Actions → *Daily Crank questions* → *Run workflow*, set a theme, and tick *replace* to redraft a day that already has a PR (this overwrites edits on that PR branch).
 - **Skipped days:** if the day is already in `questions.json` (say you wrote it by hand), the run does nothing.
 
@@ -54,7 +54,22 @@ Warnings show up in the PR for a human to judge:
 
 ## Setup
 
-**Scheduled task:** nothing to set up in GitHub. `RUNBOOK.md` must be on `main`; the task reads it from there.
+**Scheduled task:** `RUNBOOK.md` must be on `main`; the task reads it from there. PRs are opened by the Crank Bot GitHub App, which needs this one-time setup by an org owner:
+
+1. **Create the app.** In the MoneyBusiness-LLC organization: Settings → Developer settings → GitHub Apps → **New GitHub App**.
+   - **Name:** something unique across GitHub, e.g. `Crank Bot MoneyBusiness`. PRs show it as `<name>[bot]`.
+   - **Homepage URL:** `https://crankreports.com`
+   - **Webhook:** uncheck *Active*.
+   - **Repository permissions:** *Contents*: Read and write; *Pull requests*: Read and write. Leave everything else at No access.
+   - **Where can this app be installed:** Only on this account.
+2. **Save the credentials.** On the app's page, note the **App ID**, then under *Private keys* click **Generate a private key** to download a `.pem` file.
+3. **Install it.** On the app's page: Install App → MoneyBusiness-LLC → *Only select repositories* → `crankreports`.
+4. **Give the workflow the credentials.** In this repo: Settings → Secrets and variables → Actions.
+   - *Variables* tab: add `CRANK_BOT_APP_ID` = the App ID.
+   - *Secrets* tab: add `CRANK_BOT_PRIVATE_KEY` = the whole contents of the `.pem` file. Then delete the downloaded file.
+5. **Check the ruleset on `main`.** If *Require approval of the most recent reviewable push* is on, whoever pushed the branch can't approve. The nightly run pushes as Bobby, so with that setting on, only Ben could approve. It's off by default.
+
+If the app isn't set up, the run still pushes its branch but no PR appears; the run's report says so, and you can open the PR from the branch by hand.
 
 **GitHub Action (only if you use the backup):**
 1. Add an `ANTHROPIC_API_KEY` repository secret (Settings → Secrets and variables → Actions).
