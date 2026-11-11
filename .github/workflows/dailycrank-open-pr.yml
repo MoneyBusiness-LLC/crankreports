@@ -5,8 +5,8 @@ name: Daily Crank open PR
 # PR's author approve it). The PR title and description come from the
 # branch's latest commit: its first line and its body.
 #
-# Needs the app's ID in GOD_CRANK_APP_ID (a repo variable or secret) and its
-# private key in the GOD_CRANK_SECRET repo secret. Setup steps are in
+# Needs the app's ID in the GOD_CRANK_APP_ID repo variable (not secret: it only
+# identifies the app) and its private key in the GOD_CRANK_SECRET repo secret. Setup steps are in
 # pipeline/dailycrank/README.md.
 #
 # To open a PR for a branch that was already pushed (say, if this workflow
@@ -51,7 +51,7 @@ jobs:
         id: bot
         uses: actions/create-github-app-token@v1
         with:
-          app-id: ${{ vars.GOD_CRANK_APP_ID || secrets.GOD_CRANK_APP_ID }}
+          app-id: ${{ vars.GOD_CRANK_APP_ID }}
           private-key: ${{ secrets.GOD_CRANK_SECRET }}
 
       - name: Open the PR unless one is already open
