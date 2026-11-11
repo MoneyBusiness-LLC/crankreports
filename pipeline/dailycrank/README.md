@@ -2,7 +2,7 @@
 
 At 9:30pm Pacific, the next day's questions are drafted from the latest headlines and opened as a PR. Approving and merging the PR publishes the day; until then, players get the previous day again. There are two ways to run the drafting, and both use the same files here:
 
-| | **Claude Code scheduled task** (current, trial through Nov 11) | **GitHub Action with an API key** (backup) |
+| | **Claude Code scheduled task** (current, trial through Nov 18) | **GitHub Action with an API key** (backup) |
 |---|---|---|
 | Instructions | `RUNBOOK.md` + `prompt.md` | `generate.py` + `prompt.md` |
 | When | 9:30pm Pacific daily, in the "Daily Crank Runner" session | By hand: Actions → *Daily Crank questions* → *Run workflow* |
