@@ -1497,5 +1497,87 @@
       "answer": "Blue",
       "alsoAccept": []
     }
+  },
+  "2026-11-13": {
+    "surface": [
+      {
+        "topic": "Movies",
+        "question": "Happy Friday the 13th! The *Friday the 13th* films' hockey-masked killer is?",
+        "answer": "Jason Voorhees",
+        "wrong": [
+          "Michael Myers",
+          "Freddy Krueger",
+          "Ghostface"
+        ]
+      },
+      {
+        "topic": "Sports",
+        "question": "Pete Crow-Armstrong won the 2026 NL MVP playing for which team?",
+        "answer": "Chicago Cubs",
+        "wrong": [
+          "St. Louis Cardinals",
+          "Milwaukee Brewers",
+          "Cincinnati Reds"
+        ]
+      },
+      {
+        "topic": "Music",
+        "question": "Latin Grammys star Rosalía is from which country?",
+        "answer": "Spain",
+        "wrong": [
+          "Mexico",
+          "Argentina",
+          "Colombia"
+        ]
+      },
+      {
+        "topic": "Space",
+        "question": "NASA's Perseverance rover landed in which Mars crater?",
+        "answer": "Jezero",
+        "wrong": [
+          "Gale",
+          "Gusev",
+          "Endurance"
+        ]
+      },
+      {
+        "topic": "TV",
+        "question": "*The White Lotus* season 3 was set in which country?",
+        "answer": "Thailand",
+        "wrong": [
+          "Italy",
+          "Japan",
+          "Mexico"
+        ]
+      }
+    ],
+    "midwater": [
+      {
+        "question": "How many Women's World Cups did Megan Rapinoe win?",
+        "answer": 2,
+        "unit": "World Cups",
+        "min": 0,
+        "max": 10
+      },
+      {
+        "question": "How many missions did space shuttle Endeavour fly?",
+        "answer": 25,
+        "unit": "missions",
+        "min": 0,
+        "max": 120
+      },
+      {
+        "question": "The original Xbox launched in the U.S. in 2001 at about how many dollars?",
+        "answer": 300,
+        "unit": "dollars",
+        "min": 0,
+        "max": 1500
+      }
+    ],
+    "bottom": {
+      "clue": "Microsoft email app hit by a big outage in November 2026; also a point of view",
+      "answer": "Outlook",
+      "alsoAccept": []
+    }
   }
 }
