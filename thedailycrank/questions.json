@@ -1579,5 +1579,87 @@
       "answer": "Outlook",
       "alsoAccept": []
     }
+  },
+  "2026-11-14": {
+    "surface": [
+      {
+        "topic": "Games",
+        "question": "*Grand Theft Auto VI*, out Nov 19, returns to which fictional Miami-inspired city?",
+        "answer": "Vice City",
+        "wrong": [
+          "Liberty City",
+          "Los Santos",
+          "San Fierro"
+        ]
+      },
+      {
+        "topic": "Movies",
+        "question": "In *Heat* (1995), who played the cop chasing Robert De Niro's thief?",
+        "answer": "Al Pacino",
+        "wrong": [
+          "Jack Nicholson",
+          "Dustin Hoffman",
+          "Gene Hackman"
+        ]
+      },
+      {
+        "topic": "Comics",
+        "question": "Gambit, played by Channing Tatum, comes from which Marvel team?",
+        "answer": "X-Men",
+        "wrong": [
+          "Avengers",
+          "Fantastic Four",
+          "Guardians of the Galaxy"
+        ]
+      },
+      {
+        "topic": "Music",
+        "question": "The singing trio Il Volo is from which country?",
+        "answer": "Italy",
+        "wrong": [
+          "Spain",
+          "France",
+          "Portugal"
+        ]
+      },
+      {
+        "topic": "Movies",
+        "question": "Jamie Lee Curtis won her Oscar for which film?",
+        "answer": "*Everything Everywhere All at Once*",
+        "wrong": [
+          "*A Fish Called Wanda*",
+          "*The Tailor of Panama*",
+          "*Knives Out*"
+        ]
+      }
+    ],
+    "midwater": [
+      {
+        "question": "How many steps does a Tomb of the Unknown Soldier sentinel take before turning?",
+        "answer": 21,
+        "unit": "steps",
+        "min": 0,
+        "max": 100
+      },
+      {
+        "question": "MLS approved the sale of the San Jose Earthquakes for how many million dollars?",
+        "answer": 625,
+        "unit": "million dollars",
+        "min": 0,
+        "max": 3000
+      },
+      {
+        "question": "How many crewed missions flew in NASA's Gemini program?",
+        "answer": 10,
+        "unit": "missions",
+        "min": 0,
+        "max": 50
+      }
+    ],
+    "bottom": {
+      "clue": "The FAA's nationwide '___ stop' that halted U.S. flights on Nov 13, 2026; also coffee after grinding",
+      "answer": "Ground",
+      "alsoAccept": []
+    }
   }
 }
