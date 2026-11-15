@@ -1661,5 +1661,87 @@
       "answer": "Ground",
       "alsoAccept": []
     }
+  },
+  "2026-11-15": {
+    "surface": [
+      {
+        "topic": "Sports",
+        "question": "UFC champion Kayla Harrison won two Olympic gold medals in which sport?",
+        "answer": "Judo",
+        "wrong": [
+          "Wrestling",
+          "Boxing",
+          "Taekwondo"
+        ]
+      },
+      {
+        "topic": "Music",
+        "question": "The first Eurovision Song Contest was held in what year?",
+        "answer": "1956",
+        "wrong": [
+          "1948",
+          "1964",
+          "1974"
+        ]
+      },
+      {
+        "topic": "Movies",
+        "question": "Cillian Murphy won his Best Actor Oscar for which film?",
+        "answer": "*Oppenheimer*",
+        "wrong": [
+          "*Inception*",
+          "*Dunkirk*",
+          "*28 Days Later*"
+        ]
+      },
+      {
+        "topic": "Games",
+        "question": "*Magic: The Gathering* was first published by which company?",
+        "answer": "Wizards of the Coast",
+        "wrong": [
+          "Games Workshop",
+          "Milton Bradley",
+          "Parker Brothers"
+        ]
+      },
+      {
+        "topic": "World",
+        "question": "Before becoming pope, Leo XIV served as a bishop in which country?",
+        "answer": "Peru",
+        "wrong": [
+          "Chile",
+          "Bolivia",
+          "Ecuador"
+        ]
+      }
+    ],
+    "midwater": [
+      {
+        "question": "As of November 2026, how many dwarf planets does the International Astronomical Union recognize?",
+        "answer": 5,
+        "unit": "dwarf planets",
+        "min": 0,
+        "max": 25
+      },
+      {
+        "question": "Italy fined Meta how many million euros in November 2026 over access to users' photos?",
+        "answer": 805,
+        "unit": "million euros",
+        "min": 0,
+        "max": 4000
+      },
+      {
+        "question": "The Van Gogh at the center of a Sotheby's ownership dispute is valued at about how many million dollars?",
+        "answer": 180,
+        "unit": "million dollars",
+        "min": 0,
+        "max": 1000
+      }
+    ],
+    "bottom": {
+      "clue": "Nickname for the SpaceX tower arms that caught a Starship upper stage for the first time in November 2026; also utensils for noodles",
+      "answer": "Chopsticks",
+      "alsoAccept": []
+    }
   }
 }
