@@ -1743,5 +1743,87 @@
       "answer": "Chopsticks",
       "alsoAccept": []
     }
+  },
+  "2026-11-16": {
+    "surface": [
+      {
+        "topic": "Sports",
+        "question": "Which writer coined \"Scorigami\" for never-before-seen NFL final scores?",
+        "answer": "Jon Bois",
+        "wrong": [
+          "Bill Simmons",
+          "Peter King",
+          "Mel Kiper Jr."
+        ]
+      },
+      {
+        "topic": "Movies",
+        "question": "Honorary Oscar recipient Ridley Scott directed which Best Picture winner?",
+        "answer": "*Gladiator*",
+        "wrong": [
+          "*Braveheart*",
+          "*American Beauty*",
+          "*Titanic*"
+        ]
+      },
+      {
+        "topic": "TV",
+        "question": "In *Slow Horses*, Gary Oldman plays which spy?",
+        "answer": "Jackson Lamb",
+        "wrong": [
+          "George Smiley",
+          "Harry Palmer",
+          "James Bond"
+        ]
+      },
+      {
+        "topic": "Books",
+        "question": "Christopher Nolan's *The Odyssey* adapts an epic poem by whom?",
+        "answer": "Homer",
+        "wrong": [
+          "Virgil",
+          "Ovid",
+          "Dante"
+        ]
+      },
+      {
+        "topic": "Space",
+        "question": "Which spacecraft is the only one to visit Uranus and Neptune?",
+        "answer": "Voyager 2",
+        "wrong": [
+          "Voyager 1",
+          "Cassini",
+          "New Horizons"
+        ]
+      }
+    ],
+    "midwater": [
+      {
+        "question": "The Celtics led the Mavericks 42-9 after one quarter in November 2026. By how many points?",
+        "answer": 33,
+        "unit": "points",
+        "min": 0,
+        "max": 150
+      },
+      {
+        "question": "ULA's failed Vulcan launch in November 2026 lost how many Amazon Leo satellites?",
+        "answer": 40,
+        "unit": "satellites",
+        "min": 0,
+        "max": 200
+      },
+      {
+        "question": "How many competitive Oscar nominations did Glenn Close receive without a win?",
+        "answer": 8,
+        "unit": "nominations",
+        "min": 0,
+        "max": 40
+      }
+    ],
+    "bottom": {
+      "clue": "Toronto's WNBA team that won the 2027 draft lottery; also the speed of a piece of music",
+      "answer": "Tempo",
+      "alsoAccept": []
+    }
   }
 }
