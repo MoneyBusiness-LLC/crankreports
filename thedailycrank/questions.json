@@ -1825,5 +1825,87 @@
       "answer": "Tempo",
       "alsoAccept": []
     }
+  },
+  "2026-11-17": {
+    "surface": [
+      {
+        "topic": "Movies",
+        "question": "Robert Pattinson, named Amazon's first James Bond in November 2026, played which superhero in 2022?",
+        "answer": "Batman",
+        "wrong": [
+          "Superman",
+          "Green Lantern",
+          "Daredevil"
+        ]
+      },
+      {
+        "topic": "Music",
+        "question": "Rock Hall inductees Wu-Tang Clan formed in which New York City borough?",
+        "answer": "Staten Island",
+        "wrong": [
+          "Brooklyn",
+          "the Bronx",
+          "Queens"
+        ]
+      },
+      {
+        "topic": "Sports",
+        "question": "Billie Jean King beat which man in 1973's \"Battle of the Sexes\"?",
+        "answer": "Bobby Riggs",
+        "wrong": [
+          "Jimmy Connors",
+          "Rod Laver",
+          "Arthur Ashe"
+        ]
+      },
+      {
+        "topic": "Space",
+        "question": "ESA's Hera is studying an asteroid that which NASA mission smashed into in 2022?",
+        "answer": "DART",
+        "wrong": [
+          "OSIRIS-REx",
+          "Lucy",
+          "Psyche"
+        ]
+      },
+      {
+        "topic": "Geography",
+        "question": "Puncak Jaya, Oceania's highest peak, is in which country?",
+        "answer": "Indonesia",
+        "wrong": [
+          "Papua New Guinea",
+          "Australia",
+          "New Zealand"
+        ]
+      }
+    ],
+    "midwater": [
+      {
+        "question": "New NC State coach Philip Rivers' streak of consecutive regular-season NFL starts ended at how many?",
+        "answer": 240,
+        "unit": "starts",
+        "min": 0,
+        "max": 1000
+      },
+      {
+        "question": "As of November 2026, how many holes has NASA's Curiosity rover drilled on Mars?",
+        "answer": 49,
+        "unit": "holes",
+        "min": 0,
+        "max": 200
+      },
+      {
+        "question": "In a study reported in November 2026, the most crowded deep-sea rock held how many animals?",
+        "answer": 245,
+        "unit": "animals",
+        "min": 0,
+        "max": 1000
+      }
+    ],
+    "bottom": {
+      "clue": "ESA/NASA sea-level satellite ___-6B; also a guard keeping watch",
+      "answer": "Sentinel",
+      "alsoAccept": []
+    }
   }
 }
