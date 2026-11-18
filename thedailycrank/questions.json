@@ -1907,5 +1907,87 @@
       "answer": "Sentinel",
       "alsoAccept": []
     }
+  },
+  "2026-11-18": {
+    "surface": [
+      {
+        "topic": "Art",
+        "question": "Goya's *Saturn Devouring His Son* belongs to which group of his works?",
+        "answer": "The Black Paintings",
+        "wrong": [
+          "The Disasters of War",
+          "Los Caprichos",
+          "The Tapestry Cartoons"
+        ]
+      },
+      {
+        "topic": "Movies",
+        "question": "Who played the Grinch in Ron Howard's 2000 *How the Grinch Stole Christmas*?",
+        "answer": "Jim Carrey",
+        "wrong": [
+          "Mike Myers",
+          "Robin Williams",
+          "Steve Martin"
+        ]
+      },
+      {
+        "topic": "TV",
+        "question": "*3 Body Problem*, whose season 2 teaser dropped in November 2026, adapts novels by whom?",
+        "answer": "Liu Cixin",
+        "wrong": [
+          "Mo Yan",
+          "Ted Chiang",
+          "Yu Hua"
+        ]
+      },
+      {
+        "topic": "Space",
+        "question": "NASA's Roman Space Telescope honors Nancy Grace Roman, called the \"mother of\" which telescope?",
+        "answer": "Hubble",
+        "wrong": [
+          "James Webb",
+          "Spitzer",
+          "Chandra"
+        ]
+      },
+      {
+        "topic": "Sports",
+        "question": "The Chicago Blackhawks drafted Connor Bedard first overall in which year?",
+        "answer": "2023",
+        "wrong": [
+          "2021",
+          "2022",
+          "2024"
+        ]
+      }
+    ],
+    "midwater": [
+      {
+        "question": "Illinois' Andrej Stojakovic set the record for most points by an opponent at Duke's Cameron Indoor in November 2026. How many?",
+        "answer": 46,
+        "unit": "points",
+        "min": 0,
+        "max": 200
+      },
+      {
+        "question": "NASA's November 2026 Space Apps Challenge drew a record how many registered participants?",
+        "answer": 181835,
+        "unit": "participants",
+        "min": 0,
+        "max": 800000
+      },
+      {
+        "question": "In Pochettino's USMNT farewell in November 2026, the US beat Haiti by how many goals on aggregate?",
+        "answer": 8,
+        "unit": "goals",
+        "min": 0,
+        "max": 40
+      }
+    ],
+    "bottom": {
+      "clue": "Kevin Parker's band Tame ___; also an African antelope",
+      "answer": "Impala",
+      "alsoAccept": []
+    }
   }
 }
