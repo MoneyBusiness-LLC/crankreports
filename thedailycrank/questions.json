@@ -1989,5 +1989,87 @@
       "answer": "Impala",
       "alsoAccept": []
     }
+  },
+  "2026-11-25": {
+    "surface": [
+      {
+        "topic": "TV",
+        "question": "The *Dancing with the Stars* Mirrorball Trophy is named for which late judge?",
+        "answer": "Len Goodman",
+        "wrong": [
+          "Bruno Tonioli",
+          "Carrie Ann Inaba",
+          "Simon Cowell"
+        ]
+      },
+      {
+        "topic": "Movies",
+        "question": "In *Avengers: Doomsday*, Robert Downey Jr. plays which villain?",
+        "answer": "Doctor Doom",
+        "wrong": [
+          "Thanos",
+          "Kang",
+          "Galactus"
+        ]
+      },
+      {
+        "topic": "Space",
+        "question": "NASA's Dragonfly rotorcraft is headed to which moon of Saturn?",
+        "answer": "Titan",
+        "wrong": [
+          "Enceladus",
+          "Mimas",
+          "Iapetus"
+        ]
+      },
+      {
+        "topic": "Sports",
+        "question": "Which NFL team has hosted a Thanksgiving Day game nearly every year since 1934?",
+        "answer": "Detroit Lions",
+        "wrong": [
+          "Dallas Cowboys",
+          "Green Bay Packers",
+          "Chicago Bears"
+        ]
+      },
+      {
+        "topic": "Sports",
+        "question": "Aaron Rodgers, benched by the Steelers in November 2026, won his Super Bowl with which team?",
+        "answer": "Packers",
+        "wrong": [
+          "Jets",
+          "Steelers",
+          "Bears"
+        ]
+      }
+    ],
+    "midwater": [
+      {
+        "question": "Counting the one on Nov. 26, 2026, how many Macy's Thanksgiving Day Parades have been held?",
+        "answer": 100,
+        "unit": "parades",
+        "min": 0,
+        "max": 450
+      },
+      {
+        "question": "Northrop Grumman's CRS-25 Cygnus, set to launch in late November 2026, carries about how many pounds of cargo to the ISS?",
+        "answer": 11000,
+        "unit": "pounds",
+        "min": 0,
+        "max": 50000
+      },
+      {
+        "question": "South Carolina's Tessa Johnson scored a career-high how many points against UConn in November 2026?",
+        "answer": 32,
+        "unit": "points",
+        "min": 0,
+        "max": 150
+      }
+    ],
+    "bottom": {
+      "clue": "Thanksgiving's centerpiece bird; also three strikes in a row in bowling",
+      "answer": "Turkey",
+      "alsoAccept": []
+    }
   }
 }
