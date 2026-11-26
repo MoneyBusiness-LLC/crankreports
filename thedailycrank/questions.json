@@ -2071,5 +2071,87 @@
       "answer": "Turkey",
       "alsoAccept": []
     }
+  },
+  "2026-11-26": {
+    "surface": [
+      {
+        "topic": "Music",
+        "question": "U2, who headlined the NFL's Thanksgiving Eve halftime show in November 2026, formed in which city?",
+        "answer": "Dublin",
+        "wrong": [
+          "Belfast",
+          "Cork",
+          "London"
+        ]
+      },
+      {
+        "topic": "TV",
+        "question": "*South Park*, which aired its season 29 finale in November 2026, is set in which state?",
+        "answer": "Colorado",
+        "wrong": [
+          "Wyoming",
+          "Montana",
+          "Utah"
+        ]
+      },
+      {
+        "topic": "Movies",
+        "question": "Stanley Tucci co-directed and starred in which 1996 food film?",
+        "answer": "*Big Night*",
+        "wrong": [
+          "*Chef*",
+          "*Mystic Pizza*",
+          "*Babette's Feast*"
+        ]
+      },
+      {
+        "topic": "Geography",
+        "question": "The Richat Structure, or \"Eye of the Sahara,\" is in which country?",
+        "answer": "Mauritania",
+        "wrong": [
+          "Mali",
+          "Algeria",
+          "Niger"
+        ]
+      },
+      {
+        "topic": "Internet",
+        "question": "\"Eternal September\" describes the 1993 flood of new users onto which network?",
+        "answer": "Usenet",
+        "wrong": [
+          "IRC",
+          "AOL Instant Messenger",
+          "Myspace"
+        ]
+      }
+    ],
+    "midwater": [
+      {
+        "question": "In November 2026 the FCC authorized SpaceX to launch up to how many data center satellites?",
+        "answer": 1000000,
+        "unit": "satellites",
+        "min": 0,
+        "max": 5000000
+      },
+      {
+        "question": "Media Partners Asia projects global microdrama revenue will reach how many billion dollars in 2026?",
+        "answer": 20,
+        "unit": "billion dollars",
+        "min": 0,
+        "max": 100
+      },
+      {
+        "question": "Jrue Holiday passed Deron Williams on the NBA career assists list in November 2026. How many assists did Williams have?",
+        "answer": 6819,
+        "unit": "assists",
+        "min": 0,
+        "max": 30000
+      }
+    ],
+    "bottom": {
+      "clue": "Prayer said before Thanksgiving dinner; also elegance of movement",
+      "answer": "Grace",
+      "alsoAccept": []
+    }
   }
 }
