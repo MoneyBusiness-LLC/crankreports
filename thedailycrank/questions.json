@@ -2071,5 +2071,87 @@
       "answer": "Turkey",
       "alsoAccept": []
     }
+  },
+  "2026-11-27": {
+    "surface": [
+      {
+        "topic": "TV",
+        "question": "*Friday Night Lights*, named America's favorite sports TV show in a November 2026 poll, is set in which fictional Texas town?",
+        "answer": "Dillon",
+        "wrong": [
+          "Bluebell",
+          "Stars Hollow",
+          "Hawkins"
+        ]
+      },
+      {
+        "topic": "Books",
+        "question": "*Blade Runner*, whose spinoff *Blade Runner 2099* ended in November 2026, is based on a novel by whom?",
+        "answer": "Philip K. Dick",
+        "wrong": [
+          "Isaac Asimov",
+          "Arthur C. Clarke",
+          "William Gibson"
+        ]
+      },
+      {
+        "topic": "Music",
+        "question": "Which Goo Goo Dolls hit was written for the *City of Angels* soundtrack?",
+        "answer": "\"Iris\"",
+        "wrong": [
+          "\"Slide\"",
+          "\"Name\"",
+          "\"Black Balloon\""
+        ]
+      },
+      {
+        "topic": "Geography",
+        "question": "Shiveluch, one of Russia's most active volcanoes, is on which peninsula?",
+        "answer": "Kamchatka",
+        "wrong": [
+          "Crimea",
+          "Kola",
+          "Taymyr"
+        ]
+      },
+      {
+        "topic": "Science",
+        "question": "Lead's chemical symbol, Pb, comes from which Latin word?",
+        "answer": "Plumbum",
+        "wrong": [
+          "Ferrum",
+          "Aurum",
+          "Stannum"
+        ]
+      }
+    ],
+    "midwater": [
+      {
+        "question": "The Eagles beat the Cowboys on Thanksgiving 2026 after trailing by how many points?",
+        "answer": 21,
+        "unit": "points",
+        "min": 0,
+        "max": 100
+      },
+      {
+        "question": "Saint Mary's beat No. 6 UCLA in November 2026 by hitting how many 3-pointers?",
+        "answer": 15,
+        "unit": "3-pointers",
+        "min": 0,
+        "max": 70
+      },
+      {
+        "question": "Counting the 2026 pageant, how many Miss Universe pageants have been held?",
+        "answer": 75,
+        "unit": "pageants",
+        "min": 0,
+        "max": 350
+      }
+    ],
+    "bottom": {
+      "clue": "A Black Friday bargain; also what a base runner does to second",
+      "answer": "Steal",
+      "alsoAccept": []
+    }
   }
 }
