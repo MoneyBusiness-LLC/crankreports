@@ -2071,5 +2071,87 @@
       "answer": "Turkey",
       "alsoAccept": []
     }
+  },
+  "2026-11-28": {
+    "surface": [
+      {
+        "topic": "Sports",
+        "question": "The USWNT clinched a spot in the 2027 Women's World Cup, hosted by which country?",
+        "answer": "Brazil",
+        "wrong": [
+          "Mexico",
+          "Australia",
+          "Germany"
+        ]
+      },
+      {
+        "topic": "Sports",
+        "question": "Lionel Messi, whose Inter Miami were knocked out of the MLS playoffs in November 2026, won the World Cup in which host country?",
+        "answer": "Qatar",
+        "wrong": [
+          "Russia",
+          "Brazil",
+          "South Africa"
+        ]
+      },
+      {
+        "topic": "Science",
+        "question": "A narwhal's famous \"horn\" is actually an elongated what?",
+        "answer": "Tooth",
+        "wrong": [
+          "Horn",
+          "Bone",
+          "Hair"
+        ]
+      },
+      {
+        "topic": "Music",
+        "question": "Olivia Rodrigo, who released a holiday single in November 2026, titled her debut album what?",
+        "answer": "*SOUR*",
+        "wrong": [
+          "*GUTS*",
+          "*Midnights*",
+          "*Positions*"
+        ]
+      },
+      {
+        "topic": "TV",
+        "question": "*Outlander*, whose prequel *Blood of My Blood* ended season 2 in November 2026, is based on novels by whom?",
+        "answer": "Diana Gabaldon",
+        "wrong": [
+          "Nora Roberts",
+          "Philippa Gregory",
+          "Hilary Mantel"
+        ]
+      }
+    ],
+    "midwater": [
+      {
+        "question": "As of Nov. 27, 2026, the Mega Millions jackpot had risen to how many million dollars?",
+        "answer": 673,
+        "unit": "million dollars",
+        "min": 0,
+        "max": 3000
+      },
+      {
+        "question": "How many astronauts will fly on NASA's Artemis III mission?",
+        "answer": 4,
+        "unit": "astronauts",
+        "min": 0,
+        "max": 20
+      },
+      {
+        "question": "Counting the final one on Dec. 5, 2026, how many SEC Championship Games will have been played?",
+        "answer": 35,
+        "unit": "games",
+        "min": 0,
+        "max": 150
+      }
+    ],
+    "bottom": {
+      "clue": "The NBA's in-season tournament prize; also something you drink coffee from",
+      "answer": "Cup",
+      "alsoAccept": []
+    }
   }
 }
